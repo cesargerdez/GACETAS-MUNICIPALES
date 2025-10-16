@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> GACETAS MUNICIPALES  - Gestor de Documentos</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --success-color: #2ecc71;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--box-shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 20px;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .search-container input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-container input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+        }
+
+        .search-container i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        main {
+            padding: 2rem 0;
+        }
+
+        .upload-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        .upload-area {
+            border: 2px dashed #bdc3c7;
+            border-radius: var(--border-radius);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+
+        .upload-area i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .upload-area h3 {
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .upload-area p {
+            color: #7f8c8d;
+            margin-bottom: 1rem;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .file-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: visible;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+            height: fit-content;
+        }
+
+        .file-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+        }
+
+        .file-preview {
+            height: 160px;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+
+        .file-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .file-preview .file-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+        }
+
+        /* Portadas estilizadas para diferentes tipos de archivos */
+        .cover-preview {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pdf-cover {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+
+        .doc-cover {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+        }
+
+        .image-cover {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+        }
+
+        .cover-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .cover-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .cover-subtitle {
+            font-size: 0.75rem;
+            opacity: 0.9;
+        }
+
+        .cover-corner {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-size: 0.7rem;
+        }
+
+        .file-info {
+            padding: 1.2rem;
+            position: relative;
+            z-index: 2;
+            background: white;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+        }
+
+        .file-name {
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 0.95rem;
+        }
+
+        .file-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #7f8c8d;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .file-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .file-actions button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--primary-color);
+            transition: var(--transition);
+            padding: 6px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        .file-actions button:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+            transform: scale(1.1);
+        }
+
+        .file-actions button.delete:hover {
+            color: var(--accent-color);
+            background-color: rgba(231, 76, 60, 0.1);
+        }
+
+        /* Notas flotantes optimizadas */
+        .file-floating-note {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-20px) scale(0.95);
+            background: rgba(44, 62, 80, 0.98);
+            color: white;
+            padding: 18px;
+            border-radius: 12px;
+            width: 340px;
+            max-width: 95vw;
+            z-index: 1000;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        /* Posicionamiento inteligente basado en la posición de la tarjeta */
+        .file-card:nth-child(odd) .file-floating-note {
+            left: calc(100% + 15px);
+            top: 50%;
+            transform: translateY(-50%) translateX(-20px) scale(0.95);
+        }
+
+        .file-card:nth-child(even) .file-floating-note {
+            left: auto;
+            right: calc(100% + 15px);
+            top: 50%;
+            transform: translateY(-50%) translateX(20px) scale(0.95);
+        }
+
+        /* Ajustes para evitar que se salga de la pantalla */
+        .file-card:first-child .file-floating-note,
+        .file-card:nth-child(2) .file-floating-note {
+            left: 50%;
+            right: auto;
+            top: calc(100% + 15px);
+            transform: translateX(-50%) translateY(-20px) scale(0.95);
+        }
+
+        .file-card:last-child .file-floating-note,
+        .file-card:nth-last-child(2) .file-floating-note {
+            left: 50%;
+            right: auto;
+            top: auto;
+            bottom: calc(100% + 15px);
+            transform: translateX(-50%) translateY(20px) scale(0.95);
+        }
+
+        .file-card:hover .file-floating-note {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0) scale(1);
+        }
+
+        .file-card:nth-child(odd):hover .file-floating-note {
+            transform: translateY(-50%) translateX(0) scale(1);
+        }
+
+        .file-card:nth-child(even):hover .file-floating-note {
+            transform: translateY(-50%) translateX(0) scale(1);
+        }
+
+        .file-card:first-child:hover .file-floating-note,
+        .file-card:nth-child(2):hover .file-floating-note {
+            transform: translateX(-50%) translateY(0) scale(1);
+        }
+
+        .file-card:last-child:hover .file-floating-note,
+        .file-card:nth-last-child(2):hover .file-floating-note {
+            transform: translateX(-50%) translateY(0) scale(1);
+        }
+
+        .note-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .note-icon {
+            font-size: 1.3rem;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            flex-shrink: 0;
+        }
+
+        .note-title {
+            font-weight: 600;
+            font-size: 1rem;
+            flex: 1;
+            line-height: 1.3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .note-content {
+            line-height: 1.5;
+            margin-bottom: 12px;
+            max-height: 80px;
+            overflow-y: auto;
+            padding-right: 5px;
+            font-size: 0.85rem;
+        }
+
+        .note-content::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .note-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+        }
+
+        .note-content::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .note-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            font-size: 0.75rem;
+            color: #bdc3c7;
+            margin-bottom: 10px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            overflow: hidden;
+        }
+
+        .meta-item i {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            flex-shrink: 0;
+        }
+
+        .meta-item span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .note-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-top: 8px;
+        }
+
+        .tag {
+            background: rgba(52, 152, 219, 0.3);
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 0.65rem;
+            border: 1px solid rgba(52, 152, 219, 0.5);
+            white-space: nowrap;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: #7f8c8d;
+            grid-column: 1 / -1;
+        }
+
+        .no-results i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: #bdc3c7;
+        }
+
+        /* Modal para vista previa */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: var(--border-radius);
+            max-width: 90%;
+            max-height: 90%;
+            overflow: auto;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-body {
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .modal-body img {
+            max-width: 100%;
+            max-height: 70vh;
+        }
+
+        .modal-body .file-icon {
+            font-size: 5rem;
+            color: var(--primary-color);
+            margin: 2rem 0;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #7f8c8d;
+        }
+
+        .close-modal:hover {
+            color: var(--accent-color);
+        }
+
+        /* Toast notifications */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--success-color);
+            color: white;
+            padding: 12px 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            z-index: 1001;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.error {
+            background: var(--accent-color);
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+        }
+
+        /* Responsive para móviles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .search-container {
+                max-width: 100%;
+                margin: 10px 0;
+            }
+            
+            .file-list {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            .file-floating-note {
+                width: 280px;
+                padding: 15px;
+                position: fixed;
+                left: 50% !important;
+                right: auto !important;
+                top: 50% !important;
+                bottom: auto !important;
+                transform: translate(-50%, -50%) scale(0.95) !important;
+            }
+            
+            .file-card:hover .file-floating-note {
+                transform: translate(-50%, -50%) scale(1) !important;
+            }
+            
+            .file-actions button {
+                padding: 8px 10px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .file-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .file-floating-note {
+                width: 90vw;
+                max-width: 300px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-file-alt"></i>
+                    <h1>GACETAS MUNICIPALES</h1>
+                </div>
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Buscar documentos...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="user-actions">
+                    <button class="btn btn-secondary" id="accountBtn">
+                        <i class="fas fa-user"></i> Mi Cuenta
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="upload-section">
+            <h2>Subir Documentos</h2>
+            <div class="upload-area" id="uploadArea">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>Arrastra y suelta archivos aquí</h3>
+                <p>o haz clic para seleccionar archivos</p>
+                <p class="file-types">Soporta: PDF, DOC, DOCX, JPG, PNG, GIF</p>
+                <input type="file" id="fileInput" class="file-input" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif">
+            </div>
+            <button class="btn btn-primary" id="uploadBtn">
+                <i class="fas fa-upload"></i> Subir Archivos
+            </button>
+        </section>
+
+        <section class="files-section">
+            <h2>Mis Documentos</h2>
+            <div class="file-list" id="fileList">
+                <!-- Los archivos se cargarán aquí dinámicamente -->
+            </div>
+            <div class="no-results" id="noResults" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>No se encontraron resultados</h3>
+                <p>Intenta con otros términos de búsqueda</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal para vista previa -->
+    <div class="modal" id="previewModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Vista Previa</h3>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Contenido de la vista previa se cargará aquí -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast notifications -->
+    <div class="toast" id="toast"></div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Cesar Gerdez. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Datos de ejemplo para simular archivos existentes
+        let sampleFiles = [
+            {
+                id: 1,
+                name: "Informe Financiero Q3 2023.pdf",
+                type: "pdf",
+                size: "2.4 MB",
+                date: "2023-09-15",
+                preview: "pdf",
+                content: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                description: "Informe financiero detallado del tercer trimestre de 2023. Incluye análisis de ingresos, gastos operativos y proyecciones de crecimiento.",
+                coverColor: "pdf-cover",
+                tags: ["Finanzas", "Trimestral", "Análisis"],
+                category: "Reportes",
+                author: "Departamento Financiero"
+            },
+            {
+                id: 2,
+                name: "Contrato de Servicios Profesionales.docx",
+                type: "docx",
+                size: "1.8 MB",
+                date: "2023-10-02",
+                preview: "doc",
+                content: "# Contrato de Servicios\n\nEste es un contrato de servicios entre las partes...",
+                description: "Documento legal que establece los términos y condiciones para la prestación de servicios profesionales.",
+                coverColor: "doc-cover",
+                tags: ["Legal", "Contrato", "Servicios"],
+                category: "Legal",
+                author: "Departamento Legal"
+            },
+            {
+                id: 3,
+                name: "Diagrama de Procesos Empresariales.png",
+                type: "png",
+                size: "3.1 MB",
+                date: "2023-10-10",
+                preview: "image",
+                content: "https://via.placeholder.com/600x400/3498db/ffffff?text=Diagrama+de+Flujo",
+                description: "Diagrama de flujo detallado que ilustra los procesos operativos de la empresa.",
+                coverColor: "image-cover",
+                tags: ["Procesos", "Diagrama", "Operaciones"],
+                category: "Operaciones",
+                author: "Gerencia de Procesos"
+            },
+            {
+                id: 4,
+                name: "Presentación Estrategia 2024.pdf",
+                type: "pdf",
+                size: "4.2 MB",
+                date: "2023-10-18",
+                preview: "pdf",
+                content: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                description: "Presentación ejecutiva que detalla la estrategia corporativa para el año 2024.",
+                coverColor: "pdf-cover",
+                tags: ["Estrategia", "2024", "Presentación"],
+                category: "Planificación",
+                author: "Oficina de Estrategia"
+            },
+            {
+                id: 5,
+                name: "Logo Corporativo y Branding.jpg",
+                type: "jpg",
+                size: "1.2 MB",
+                date: "2023-10-20",
+                preview: "image",
+                content: "https://via.placeholder.com/600x400/e74c3c/ffffff?text=Logo+Empresa",
+                description: "Kit completo de identidad visual corporativa con logo en diferentes formatos.",
+                coverColor: "image-cover",
+                tags: ["Branding", "Logo", "Identidad"],
+                category: "Marketing",
+                author: "Diseño Gráfico"
+            },
+            {
+                id: 6,
+                name: "Manual de Usuario Sistema ERP.docx",
+                type: "docx",
+                size: "2.7 MB",
+                date: "2023-10-25",
+                preview: "doc",
+                content: "# Manual de Usuario\n\nBienvenido al manual de usuario de nuestro sistema...",
+                description: "Guía completa para usuarios del sistema ERP corporativo con instrucciones paso a paso.",
+                coverColor: "doc-cover",
+                tags: ["Manual", "ERP", "Usuario"],
+                category: "Documentación",
+                author: "TI y Sistemas"
+            }
+        ];
+
+        // Elementos del DOM
+        const fileInput = document.getElementById('fileInput');
+        const uploadArea = document.getElementById('uploadArea');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const fileList = document.getElementById('fileList');
+        const searchInput = document.getElementById('searchInput');
+        const noResults = document.getElementById('noResults');
+        const previewModal = document.getElementById('previewModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+        const accountBtn = document.getElementById('accountBtn');
+        const toast = document.getElementById('toast');
+
+        // Función para mostrar notificaciones toast
+        function showToast(message, isError = false) {
+            toast.textContent = message;
+            toast.className = 'toast' + (isError ? ' error' : '') + ' show';
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Cargar archivos de ejemplo al iniciar
+        document.addEventListener('DOMContentLoaded', () => {
+            renderFiles(sampleFiles);
+        });
+
+        // Funcionalidad de arrastrar y soltar
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'var(--primary-color)';
+            uploadArea.style.backgroundColor = 'rgba(52, 152, 219, 0.1)';
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = '#bdc3c7';
+            uploadArea.style.backgroundColor = 'transparent';
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#bdc3c7';
+            uploadArea.style.backgroundColor = 'transparent';
+            
+            if (e.dataTransfer.files.length) {
+                handleFiles(e.dataTransfer.files);
+            }
+        });
+
+        // Abrir selector de archivos al hacer clic en el área de subida
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // Manejar archivos seleccionados
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length) {
+                handleFiles(fileInput.files);
+            }
+        });
+
+        // Subir archivos al hacer clic en el botón
+        uploadBtn.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // Botón de cuenta de usuario
+        accountBtn.addEventListener('click', () => {
+            showToast('Funcionalidad de cuenta de usuario en desarrollo');
+        });
+
+        // Función para manejar archivos seleccionados
+        function handleFiles(files) {
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                
+                // Verificar tipo de archivo
+                const fileType = getFileType(file.name);
+                
+                // Crear objeto de archivo
+                const newFile = {
+                    id: Date.now() + i,
+                    name: file.name,
+                    type: fileType,
+                    size: formatFileSize(file.size),
+                    date: new Date().toISOString().split('T')[0],
+                    preview: fileType === 'jpg' || fileType === 'png' || fileType === 'gif' ? 'image' : fileType,
+                    content: URL.createObjectURL(file),
+                    description: `Archivo ${fileType.toUpperCase()} subido el ${new Date().toLocaleDateString()}. ${generateDescription(fileType, file.name)}`,
+                    coverColor: getCoverClass(fileType),
+                    tags: ["Nuevo", "Subido"],
+                    category: "General",
+                    author: "Usuario"
+                };
+                
+                // Agregar a la lista de archivos
+                sampleFiles.unshift(newFile);
+            }
+            
+            // Volver a renderizar la lista
+            renderFiles(sampleFiles);
+            
+            // Limpiar input
+            fileInput.value = '';
+            
+            // Mostrar mensaje de éxito
+            showToast(`Se han agregado ${files.length} archivo(s) correctamente.`);
+        }
+
+        // Función para generar descripciones automáticas basadas en el tipo de archivo
+        function generateDescription(fileType, fileName) {
+            const descriptions = {
+                pdf: "Documento en formato PDF que puede contener texto, imágenes y elementos gráficos. Ideal para documentos formales y presentaciones.",
+                doc: "Documento de texto editable creado con Microsoft Word o similar. Permite formato avanzado y edición colaborativa.",
+                docx: "Documento de texto en formato moderno de Microsoft Word. Soporta funciones avanzadas y elementos multimedia.",
+                jpg: "Imagen en formato JPEG, ideal para fotografías e imágenes con muchos colores. Ofrece buena compresión manteniendo calidad.",
+                png: "Imagen en formato PNG con soporte para transparencias. Perfecta para gráficos, logos y elementos web.",
+                gif: "Imagen animada o estática en formato GIF. Usado comúnmente para gráficos simples y animaciones cortas."
+            };
+            
+            return descriptions[fileType] || "Archivo subido por el usuario. Contiene información importante para el proyecto o trabajo actual.";
+        }
+
+        // Función para determinar el tipo de archivo
+        function getFileType(filename) {
+            const extension = filename.split('.').pop().toLowerCase();
+            return extension;
+        }
+
+        // Función para obtener la clase CSS para la portada
+        function getCoverClass(fileType) {
+            const coverClasses = {
+                pdf: "pdf-cover",
+                doc: "doc-cover",
+                docx: "doc-cover",
+                jpg: "image-cover",
+                png: "image-cover",
+                gif: "image-cover"
+            };
+            
+            return coverClasses[fileType] || "doc-cover";
+        }
+
+        // Función para obtener el icono de portada
+        function getCoverIcon(fileType) {
+            const coverIcons = {
+                pdf: "fas fa-file-pdf",
+                doc: "fas fa-file-word",
+                docx: "fas fa-file-word",
+                jpg: "fas fa-file-image",
+                png: "fas fa-file-image",
+                gif: "fas fa-file-image"
+            };
+            
+            return coverIcons[fileType] || "fas fa-file";
+        }
+
+        // Función para obtener el icono de nota
+        function getNoteIcon(fileType) {
+            const noteIcons = {
+                pdf: "fas fa-file-pdf",
+                doc: "fas fa-file-word",
+                docx: "fas fa-file-word",
+                jpg: "fas fa-file-image",
+                png: "fas fa-file-image",
+                gif: "fas fa-file-image"
+            };
+            
+            return noteIcons[fileType] || "fas fa-file";
+        }
+
+        // Función para generar título corto para portada
+        function generateShortTitle(filename) {
+            const nameWithoutExt = filename.replace(/\.[^/.]+$/, "");
+            if (nameWithoutExt.length <= 20) {
+                return nameWithoutExt;
+            }
+            return nameWithoutExt.substring(0, 17) + '...';
+        }
+
+        // Función para formatear el tamaño del archivo
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Función para renderizar archivos
+        function renderFiles(files) {
+            if (files.length === 0) {
+                fileList.innerHTML = '';
+                noResults.style.display = 'block';
+                return;
+            }
+            
+            noResults.style.display = 'none';
+            
+            fileList.innerHTML = files.map(file => `
+                <div class="file-card" data-name="${file.name.toLowerCase()}">
+                    <!-- Nota flotante optimizada -->
+                    <div class="file-floating-note">
+                        <div class="note-header">
+                            <div class="note-icon">
+                                <i class="${getNoteIcon(file.type)}"></i>
+                            </div>
+                            <div class="note-title">${file.name}</div>
+                        </div>
+                        <div class="note-content">
+                            ${file.description}
+                        </div>
+                        <div class="note-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-hashtag"></i>
+                                <span>${file.category}</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user"></i>
+                                <span>${file.author}</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>${file.date}</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-weight-hanging"></i>
+                                <span>${file.size}</span>
+                            </div>
+                        </div>
+                        <div class="note-tags">
+                            ${file.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="file-preview">
+                        ${file.preview === 'image' 
+                            ? `<img src="${file.content}" alt="${file.name}">`
+                            : `
+                                <div class="cover-preview ${file.coverColor}">
+                                    <i class="cover-icon ${getCoverIcon(file.type)}"></i>
+                                    <div class="cover-title">${generateShortTitle(file.name)}</div>
+                                    <div class="cover-subtitle">${file.type.toUpperCase()}</div>
+                                    <div class="cover-corner">${file.size}</div>
+                                </div>
+                            `
+                        }
+                    </div>
+                    <div class="file-info">
+                        <div class="file-name">${file.name}</div>
+                        <div class="file-meta">
+                            <span>${file.type.toUpperCase()}</span>
+                            <span>${file.size}</span>
+                        </div>
+                        <div class="file-actions">
+                            <button class="download" title="Descargar" data-id="${file.id}">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button class="preview" title="Vista previa" data-id="${file.id}">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="share" title="Compartir" data-id="${file.id}">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
+                            <button class="delete" title="Eliminar" data-id="${file.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Agregar event listeners a los botones
+            addButtonEventListeners();
+        }
+
+        // Función para agregar event listeners a los botones
+        function addButtonEventListeners() {
+            // Botones de descarga
+            document.querySelectorAll('.file-actions .download').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const fileId = parseInt(e.currentTarget.getAttribute('data-id'));
+                    downloadFile(fileId);
+                });
+            });
+            
+            // Botones de vista previa
+            document.querySelectorAll('.file-actions .preview').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const fileId = parseInt(e.currentTarget.getAttribute('data-id'));
+                    previewFile(fileId);
+                });
+            });
+            
+            // Botones de compartir
+            document.querySelectorAll('.file-actions .share').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const fileId = parseInt(e.currentTarget.getAttribute('data-id'));
+                    shareFile(fileId);
+                });
+            });
+            
+            // Botones de eliminar
+            document.querySelectorAll('.file-actions .delete').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const fileId = parseInt(e.currentTarget.getAttribute('data-id'));
+                    deleteFile(fileId);
+                });
+            });
+        }
+
+        // Función para descargar archivo
+        function downloadFile(fileId) {
+            const file = sampleFiles.find(f => f.id === fileId);
+            if (!file) {
+                showToast('Error: Archivo no encontrado', true);
+                return;
+            }
+            
+            try {
+                // Crear un enlace temporal para descargar
+                const link = document.createElement('a');
+                link.href = file.content;
+                link.download = file.name;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                showToast(`Descargando: ${file.name}`);
+            } catch (error) {
+                showToast('Error al descargar el archivo', true);
+                console.error('Error al descargar:', error);
+            }
+        }
+
+        // Función para vista previa
+        function previewFile(fileId) {
+            const file = sampleFiles.find(f => f.id === fileId);
+            if (!file) {
+                showToast('Error: Archivo no encontrado', true);
+                return;
+            }
+            
+            modalTitle.textContent = `Vista Previa: ${file.name}`;
+            
+            // Limpiar contenido previo
+            modalBody.innerHTML = '';
+            
+            try {
+                // Mostrar contenido según el tipo de archivo
+                if (file.preview === 'image') {
+                    const img = document.createElement('img');
+                    img.src = file.content;
+                    img.alt = file.name;
+                    modalBody.appendChild(img);
+                } else if (file.type === 'pdf') {
+                    const iframe = document.createElement('iframe');
+                    iframe.src = file.content;
+                    iframe.width = '100%';
+                    iframe.height = '500px';
+                    iframe.style.border = 'none';
+                    modalBody.appendChild(iframe);
+                } else {
+                    // Para otros tipos de archivo, mostrar información
+                    const icon = document.createElement('i');
+                    icon.className = `file-icon ${getFileIcon(file.type)}`;
+                    
+                    const message = document.createElement('p');
+                    message.textContent = `Vista previa no disponible para archivos .${file.type}. Utilice la función de descarga.`;
+                    message.style.marginTop = '1rem';
+                    message.style.padding = '1rem';
+                    message.style.backgroundColor = '#f8f9fa';
+                    message.style.borderRadius = 'var(--border-radius)';
+                    
+                    modalBody.appendChild(icon);
+                    modalBody.appendChild(message);
+                }
+                
+                // Mostrar el modal
+                previewModal.style.display = 'flex';
+                showToast(`Vista previa de: ${file.name}`);
+            } catch (error) {
+                showToast('Error al cargar la vista previa', true);
+                console.error('Error en vista previa:', error);
+            }
+        }
+
+        // Función para compartir archivo
+        function shareFile(fileId) {
+            const file = sampleFiles.find(f => f.id === fileId);
+            if (!file) {
+                showToast('Error: Archivo no encontrado', true);
+                return;
+            }
+            
+            try {
+                // Simular funcionalidad de compartir
+                if (navigator.share) {
+                    // Si el navegador soporta la Web Share API
+                    navigator.share({
+                        title: file.name,
+                        text: `Compartiendo el archivo: ${file.name}\n\nDescripción: ${file.description}`,
+                        url: file.content
+                    })
+                    .then(() => {
+                        showToast('Archivo compartido exitosamente');
+                    })
+                    .catch(error => {
+                        if (error.name !== 'AbortError') {
+                            showToast('Error al compartir el archivo', true);
+                        }
+                    });
+                } else {
+                    // Alternativa para navegadores que no soportan la API
+                    const shareUrl = prompt(
+                        `Compartir "${file.name}"\n\nDescripción: ${file.description}\n\nCopie la URL del archivo:`, 
+                        file.content
+                    );
+                    
+                    if (shareUrl) {
+                        // Intentar copiar al portapapeles
+                        navigator.clipboard.writeText(file.content).then(() => {
+                            showToast('Enlace copiado al portapapeles');
+                        }).catch(() => {
+                            showToast('Enlace listo para compartir');
+                        });
+                    }
+                }
+            } catch (error) {
+                showToast('Error al compartir el archivo', true);
+                console.error('Error al compartir:', error);
+            }
+        }
+
+        // Función para eliminar archivo
+        function deleteFile(fileId) {
+            const file = sampleFiles.find(f => f.id === fileId);
+            if (!file) {
+                showToast('Error: Archivo no encontrado', true);
+                return;
+            }
+            
+            // Confirmar eliminación
+            const confirmDelete = confirm(`¿Está seguro de que desea eliminar "${file.name}"?\nEsta acción no se puede deshacer.`);
+            
+            if (confirmDelete) {
+                try {
+                    // Eliminar archivo del array
+                    sampleFiles = sampleFiles.filter(f => f.id !== fileId);
+                    
+                    // Volver a renderizar la lista
+                    renderFiles(sampleFiles);
+                    
+                    // Mostrar mensaje de confirmación
+                    showToast(`Archivo "${file.name}" eliminado correctamente.`);
+                } catch (error) {
+                    showToast('Error al eliminar el archivo', true);
+                    console.error('Error al eliminar:', error);
+                }
+            }
+        }
+
+        // Función para obtener el icono según el tipo de archivo
+        function getFileIcon(fileType) {
+            switch(fileType) {
+                case 'pdf':
+                    return 'fas fa-file-pdf';
+                case 'doc':
+                case 'docx':
+                    return 'fas fa-file-word';
+                case 'jpg':
+                case 'png':
+                case 'gif':
+                    return 'fas fa-file-image';
+                default:
+                    return 'fas fa-file';
+            }
+        }
+
+        // Funcionalidad de búsqueda
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                renderFiles(sampleFiles);
+                return;
+            }
+            
+            const filteredFiles = sampleFiles.filter(file => 
+                file.name.toLowerCase().includes(searchTerm) || 
+                file.type.toLowerCase().includes(searchTerm) ||
+                file.description.toLowerCase().includes(searchTerm) ||
+                file.tags.some(tag => tag.toLowerCase().includes(searchTerm)) ||
+                file.category.toLowerCase().includes(searchTerm) ||
+                file.author.toLowerCase().includes(searchTerm)
+            );
+            
+            renderFiles(filteredFiles);
+        });
+
+        // Cerrar modal
+        closeModal.addEventListener('click', () => {
+            previewModal.style.display = 'none';
+        });
+
+        // Cerrar modal al hacer clic fuera del contenido
+        previewModal.addEventListener('click', (e) => {
+            if (e.target === previewModal) {
+                previewModal.style.display = 'none';
+            }
+        });
+
+        // Cerrar modal con tecla Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && previewModal.style.display === 'flex') {
+                previewModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
