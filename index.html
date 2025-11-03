@@ -141,6 +141,76 @@
             padding: 2rem 0;
         }
 
+        .categories-section {
+            margin-bottom: 2rem;
+        }
+
+        .categories-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .categories-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .category-filter {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 30px;
+            padding: 8px 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-filter:hover {
+            border-color: var(--primary-color);
+        }
+
+        .category-filter.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .category-filter .count {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 2px 8px;
+            font-size: 0.8rem;
+        }
+
+        .category-filter.active .count {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .category-manager-btn {
+            background: var(--success-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-manager-btn:hover {
+            background: #27ae60;
+        }
+
         .upload-section {
             background-color: white;
             border-radius: var(--border-radius);
@@ -184,6 +254,77 @@
             display: none;
         }
 
+        .upload-category-selector {
+            margin-bottom: 1.5rem;
+        }
+
+        .upload-category-selector label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .category-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            background: white;
+            transition: var(--transition);
+        }
+
+        .category-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .selected-files {
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .selected-files.active {
+            display: block;
+        }
+
+        .selected-files h4 {
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .file-list-preview {
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            padding: 10px;
+            background: #f8f9fa;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .file-item:last-child {
+            border-bottom: none;
+        }
+
+        .file-item-name {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+
+        .file-item-size {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+        }
+
         .file-list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -194,18 +335,15 @@
         .file-card {
             background-color: white;
             border-radius: var(--border-radius);
-            overflow: visible;
+            overflow: hidden;
             box-shadow: var(--box-shadow);
             transition: var(--transition);
             position: relative;
-            cursor: pointer;
-            height: fit-content;
         }
 
         .file-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
-            z-index: 10;
         }
 
         .file-preview {
@@ -214,9 +352,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-            position: relative;
-            border-radius: var(--border-radius) var(--border-radius) 0 0;
         }
 
         .file-preview img {
@@ -225,12 +360,6 @@
             object-fit: contain;
         }
 
-        .file-preview .file-icon {
-            font-size: 3rem;
-            color: var(--primary-color);
-        }
-
-        /* Portadas estilizadas para diferentes tipos de archivos */
         .cover-preview {
             width: 100%;
             height: 100%;
@@ -240,8 +369,6 @@
             align-items: center;
             padding: 15px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
         }
 
         .pdf-cover {
@@ -268,10 +395,6 @@
             font-size: 0.9rem;
             font-weight: 600;
             margin-bottom: 5px;
-            max-width: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
         }
 
         .cover-subtitle {
@@ -279,31 +402,13 @@
             opacity: 0.9;
         }
 
-        .cover-corner {
-            position: absolute;
-            bottom: 8px;
-            right: 8px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
-            padding: 2px 6px;
-            font-size: 0.7rem;
-        }
-
         .file-info {
             padding: 1.2rem;
-            position: relative;
-            z-index: 2;
-            background: white;
-            border-radius: 0 0 var(--border-radius) var(--border-radius);
         }
 
         .file-name {
             font-weight: 600;
             margin-bottom: 0.8rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            font-size: 0.95rem;
         }
 
         .file-meta {
@@ -312,6 +417,17 @@
             color: #7f8c8d;
             font-size: 0.8rem;
             margin-bottom: 1rem;
+        }
+
+        .file-category-badge {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
         }
 
         .file-actions {
@@ -335,7 +451,6 @@
 
         .file-actions button:hover {
             background-color: rgba(52, 152, 219, 0.1);
-            transform: scale(1.1);
         }
 
         .file-actions button.delete:hover {
@@ -343,441 +458,252 @@
             background-color: rgba(231, 76, 60, 0.1);
         }
 
-        /* NOTAS FLOTANTES MEJORADAS - MÁS GRANDES Y LEGIBLES */
-        .file-floating-note {
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-20px) scale(0.95);
-            background: rgba(44, 62, 80, 0.98);
-            color: white;
-            padding: 22px;
-            border-radius: 14px;
-            width: 480px;
-            max-width: 95vw;
-            z-index: 1000;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            pointer-events: none;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        /* Nota flotante activa - se queda fija */
-        .file-floating-note.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0) scale(1);
-            pointer-events: auto;
-        }
-
-        .file-card:nth-child(odd) .file-floating-note.active {
-            transform: translateY(-50%) translateX(0) scale(1);
-        }
-
-        .file-card:nth-child(even) .file-floating-note.active {
-            transform: translateY(-50%) translateX(0) scale(1);
-        }
-
-        .file-card:first-child .file-floating-note.active,
-        .file-card:nth-child(2) .file-floating-note.active {
-            transform: translateX(-50%) translateY(0) scale(1);
-        }
-
-        .file-card:last-child .file-floating-note.active,
-        .file-card:nth-last-child(2) .file-floating-note.active {
-            transform: translateX(-50%) translateY(0) scale(1);
-        }
-
-        /* Botón de cerrar para notas flotantes */
-        .note-close-btn {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            z-index: 1001;
-        }
-
-        .note-close-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.1);
-        }
-
-        .note-header {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 16px;
-            padding-bottom: 14px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            padding-right: 40px;
-        }
-
-        .note-icon {
-            font-size: 1.5rem;
-            width: 42px;
-            height: 42px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            flex-shrink: 0;
-        }
-
-        .note-title {
-            font-weight: 600;
-            font-size: 1.1rem;
-            flex: 1;
-            line-height: 1.4;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-        }
-
-        .edit-description-btn {
-            background: rgba(255, 255, 255, 0.2) !important;
-            border: none;
-            color: white;
-            padding: 8px 14px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-
-        .edit-description-btn:hover {
-            background: rgba(255, 255, 255, 0.3) !important;
-            transform: scale(1.05);
-        }
-
-        .note-content {
-            line-height: 1.6;
-            margin-bottom: 16px;
-            max-height: 180px;
-            overflow-y: auto;
-            padding-right: 8px;
-            font-size: 0.95rem;
-        }
-
-        .note-content::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .note-content::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-        }
-
-        .note-content::-webkit-scrollbar-thumb {
-            background: var(--primary-color);
-            border-radius: 3px;
-        }
-
-        /* Editor de descripción */
-        .description-editor {
-            width: 100%;
-            height: 140px;
-            border: 2px solid var(--primary-color);
-            border-radius: 8px;
-            padding: 12px;
-            font-size: 0.95rem;
-            font-family: inherit;
-            resize: vertical;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            line-height: 1.5;
-        }
-
-        .description-editor:focus {
-            outline: none;
-            border-color: var(--success-color);
-        }
-
-        .edit-controls {
-            display: flex;
-            gap: 10px;
-            margin-top: 12px;
-            justify-content: flex-end;
-        }
-
-        .save-btn {
-            background: var(--success-color);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-        }
-
-        .save-btn:hover {
-            background: #27ae60;
-            transform: scale(1.05);
-        }
-
-        .cancel-btn {
-            background: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-        }
-
-        .cancel-btn:hover {
-            background: #c0392b;
-            transform: scale(1.05);
-        }
-
-        .note-meta {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            font-size: 0.85rem;
-            color: #bdc3c7;
-            margin-bottom: 14px;
-        }
-
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            overflow: hidden;
-        }
-
-        .meta-item i {
-            font-size: 0.8rem;
-            opacity: 0.7;
-            flex-shrink: 0;
-        }
-
-        .meta-item span {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .note-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 12px;
-        }
-
-        .tag {
-            background: rgba(52, 152, 219, 0.3);
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            border: 1px solid rgba(52, 152, 219, 0.5);
-            white-space: nowrap;
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 3rem;
-            color: #7f8c8d;
-            grid-column: 1 / -1;
-        }
-
-        .no-results i {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            color: #bdc3c7;
-        }
-
-        /* Modal para vista previa */
-        .modal {
+        /* Ventana flotante de descripción */
+        .description-modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
-            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 3000;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            box-sizing: border-box;
         }
 
-        .modal-content {
+        .description-content {
             background-color: white;
             border-radius: 12px;
-            width: 95%;
-            height: 95%;
-            max-width: 1400px;
-            max-height: 90vh;
-            overflow: hidden;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 30px;
             position: relative;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            display: flex;
-            flex-direction: column;
         }
 
-        .modal-header {
+        .description-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 30px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
             border-bottom: 2px solid #f0f0f0;
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-radius: 12px 12px 0 0;
-            flex-shrink: 0;
         }
 
-        .modal-header h3 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--secondary-color);
-            margin: 0;
-            flex: 1;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            padding-right: 20px;
-        }
-
-        .close-modal {
+        .close-description {
             background: none;
             border: none;
-            font-size: 2rem;
+            font-size: 1.8rem;
             cursor: pointer;
             color: #7f8c8d;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            flex-shrink: 0;
         }
 
-        .close-modal:hover {
-            background-color: rgba(231, 76, 60, 0.1);
-            color: var(--accent-color);
-            transform: scale(1.1);
-        }
-
-        .modal-body {
-            padding: 0;
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: auto;
-            background: #f8f9fa;
-        }
-
-        .preview-container {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 30px;
-            box-sizing: border-box;
-        }
-
-        .modal-body img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-        }
-
-        .modal-body img:hover {
-            transform: scale(1.02);
-        }
-
-        .modal-body iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            background: white;
-        }
-
-        .modal-body .file-icon {
-            font-size: 8rem;
-            color: var(--primary-color);
-            margin-bottom: 2rem;
-        }
-
-        .file-preview-message {
-            text-align: center;
-            padding: 40px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-        }
-
-        .file-preview-message p {
-            font-size: 1.1rem;
-            color: var(--dark-color);
-            margin: 0;
+        .description-text {
+            margin-bottom: 20px;
             line-height: 1.6;
+            font-size: 1.05rem;
         }
 
-        /* Toast notifications */
-        .toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
+        .description-editor {
+            width: 100%;
+            height: 200px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-family: inherit;
+            resize: vertical;
+            margin-bottom: 20px;
+        }
+
+        .description-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .description-actions button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .save-description {
             background: var(--success-color);
             color: white;
-            padding: 12px 20px;
+        }
+
+        .cancel-edit {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .edit-description-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
             border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            z-index: 1001;
-            transform: translateX(150%);
-            transition: transform 0.3s ease;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
         }
 
-        .toast.show {
-            transform: translateX(0);
-        }
-
-        .toast.error {
-            background: var(--accent-color);
-        }
-
-        /* Login Modal */
-        .login-modal {
-            display: flex;
+        .category-modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.7);
-            z-index: 2000;
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-modal-content {
+            background-color: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 30px;
+        }
+
+        .category-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .close-category-modal {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #7f8c8d;
+        }
+
+        .category-list {
+            margin-bottom: 25px;
+        }
+
+        .category-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            margin-bottom: 10px;
+        }
+
+        .category-item-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .category-name {
+            font-weight: 600;
+        }
+
+        .category-count {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .category-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .category-action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .edit-category {
+            color: var(--primary-color);
+        }
+
+        .delete-category {
+            color: var(--accent-color);
+        }
+
+        .add-category-form {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-top: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            flex: 1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+        }
+
+        .add-category-btn {
+            background: var(--success-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 3000;
             align-items: center;
             justify-content: center;
         }
@@ -788,21 +714,11 @@
             width: 90%;
             max-width: 450px;
             padding: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
         .login-header {
             text-align: center;
             margin-bottom: 25px;
-        }
-
-        .login-header h2 {
-            color: var(--secondary-color);
-            margin-bottom: 10px;
-        }
-
-        .login-header p {
-            color: #7f8c8d;
         }
 
         .form-group {
@@ -813,7 +729,6 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
-            color: var(--dark-color);
         }
 
         .form-group input {
@@ -822,13 +737,6 @@
             border: 1px solid #ddd;
             border-radius: var(--border-radius);
             font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
         }
 
         .login-btn {
@@ -841,11 +749,6 @@
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .login-btn:hover {
-            background-color: #2980b9;
         }
 
         .user-info {
@@ -866,10 +769,6 @@
             background: rgba(231, 76, 60, 0.3);
         }
 
-        .user-role.user {
-            background: rgba(46, 204, 113, 0.3);
-        }
-
         .logout-btn {
             background: rgba(255, 255, 255, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -877,11 +776,155 @@
             padding: 8px 15px;
             border-radius: var(--border-radius);
             cursor: pointer;
-            transition: var(--transition);
         }
 
-        .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
+        .public-access-info {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .public-access-info i {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--success-color);
+            color: white;
+            padding: 12px 20px;
+            border-radius: var(--border-radius);
+            z-index: 1001;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.error {
+            background: var(--accent-color);
+        }
+
+        .preview-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .preview-content {
+            background-color: white;
+            border-radius: 12px;
+            width: 95%;
+            height: 95%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .preview-action-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .close-preview {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #7f8c8d;
+        }
+
+        .preview-body {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: auto;
+        }
+
+        .preview-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .preview-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .preview-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+
+        .preview-message {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 12px;
+        }
+
+        .search-results-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+        }
+
+        .no-results i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #bdc3c7;
         }
 
         footer {
@@ -891,60 +934,6 @@
             padding: 1.5rem 0;
             margin-top: 2rem;
         }
-
-        /* Responsive para móviles */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .search-container {
-                max-width: 100%;
-                margin: 10px 0;
-            }
-            
-            .file-list {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                gap: 1.5rem;
-            }
-            
-            .file-floating-note {
-                width: 380px;
-                padding: 18px;
-                position: fixed;
-                left: 50% !important;
-                right: auto !important;
-                top: 50% !important;
-                bottom: auto !important;
-                transform: translate(-50%, -50%) scale(0.95) !important;
-            }
-            
-            .file-floating-note.active {
-                transform: translate(-50%, -50%) scale(1) !important;
-            }
-            
-            .file-actions button {
-                padding: 8px 10px;
-                font-size: 0.9rem;
-            }
-
-            .edit-description-btn {
-                padding: 6px 10px;
-                font-size: 0.7rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .file-list {
-                grid-template-columns: 1fr;
-            }
-            
-            .file-floating-note {
-                width: 90vw;
-                max-width: 350px;
-            }
-        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -953,8 +942,8 @@
     <div class="login-modal" id="loginModal">
         <div class="login-content">
             <div class="login-header">
-                <h2>Iniciar Sesión</h2>
-                <p>Ingrese sus credenciales para acceder al sistema</p>
+                <h2>Acceso de Administrador</h2>
+                <p>Ingrese sus credenciales para acceder al panel de administración</p>
             </div>
             <form id="loginForm">
                 <div class="form-group">
@@ -968,9 +957,82 @@
                 <button type="submit" class="login-btn">Iniciar Sesión</button>
             </form>
             <div style="margin-top: 20px; font-size: 0.9rem; color: #7f8c8d;">
-                <p><strong>Usuarios de prueba:</strong></p>
-                <p>Administrador: admin / admin123</p>
-                <p>Usuario: usuario / usuario123</p>
+                <p><strong>Credenciales de prueba:</strong></p>
+                <p>Usuario: admin</p>
+                <p>Contraseña: admin123</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Gestión de Categorías -->
+    <div class="category-modal" id="categoryModal">
+        <div class="category-modal-content">
+            <div class="category-modal-header">
+                <h2>Gestión de Categorías</h2>
+                <button class="close-category-modal" id="closeCategoryModal">&times;</button>
+            </div>
+            <div class="category-list" id="categoryList">
+                <!-- Las categorías se cargarán aquí dinámicamente -->
+            </div>
+            <div class="add-category-form">
+                <h3>Agregar Nueva Categoría</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="newCategoryName">Nombre de Categoría</label>
+                        <input type="text" id="newCategoryName" placeholder="Ej: Ordenanzas Municipales">
+                    </div>
+                    <div class="form-group">
+                        <label for="newCategoryColor">Color</label>
+                        <input type="color" id="newCategoryColor" value="#3498db">
+                    </div>
+                </div>
+                <button class="add-category-btn" id="addCategoryBtn">
+                    <i class="fas fa-plus"></i> Agregar Categoría
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Descripción -->
+    <div class="description-modal" id="descriptionModal">
+        <div class="description-content">
+            <div class="description-header">
+                <h3 id="descriptionTitle">Descripción del Documento</h3>
+                <button class="close-description" id="closeDescription">&times;</button>
+            </div>
+            <div class="description-text" id="descriptionText">
+                <!-- La descripción se mostrará aquí -->
+            </div>
+            <textarea class="description-editor" id="descriptionEditor" style="display: none;"></textarea>
+            <div class="description-actions" id="descriptionActions">
+                <button class="edit-description-btn" id="editDescriptionBtn">Editar Descripción</button>
+            </div>
+            <div class="description-actions" id="editActions" style="display: none;">
+                <button class="cancel-edit" id="cancelEdit">Cancelar</button>
+                <button class="save-description" id="saveDescription">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Vista Previa -->
+    <div class="preview-modal" id="previewModal">
+        <div class="preview-content">
+            <div class="preview-header">
+                <h3 id="previewTitle">Vista Previa del Documento</h3>
+                <div class="preview-actions">
+                    <button class="preview-action-btn" id="downloadPreviewBtn">
+                        <i class="fas fa-download"></i> Descargar
+                    </button>
+                    <button class="preview-action-btn" id="sharePreviewBtn">
+                        <i class="fas fa-share-alt"></i> Compartir
+                    </button>
+                </div>
+                <button class="close-preview" id="closePreview">&times;</button>
+            </div>
+            <div class="preview-body">
+                <div class="preview-container" id="previewContainer">
+                    <!-- El contenido de vista previa se cargará aquí -->
+                </div>
             </div>
         </div>
     </div>
@@ -983,7 +1045,7 @@
                     <h1>GACETAS MUNICIPALES</h1>
                 </div>
                 <div class="search-container">
-                    <input type="text" id="searchInput" placeholder="Buscar documentos...">
+                    <input type="text" id="searchInput" placeholder="Buscar documentos por nombre, descripción o categoría...">
                     <i class="fas fa-search"></i>
                 </div>
                 <div class="user-actions" id="userActions">
@@ -994,6 +1056,35 @@
     </header>
 
     <main class="container">
+        <!-- Información de acceso público -->
+        <div class="public-access-info" id="publicAccessInfo">
+            <i class="fas fa-globe-americas"></i>
+            <h3>Acceso Público</h3>
+            <p>Todos los documentos están disponibles para visualización y descarga pública</p>
+        </div>
+
+        <!-- Información de resultados de búsqueda -->
+        <div class="search-results-info" id="searchResultsInfo" style="display: none;">
+            <i class="fas fa-search"></i>
+            <span id="searchResultsText"></span>
+            <button class="btn btn-secondary" id="clearSearch" style="margin-left: 10px; padding: 5px 10px;">
+                <i class="fas fa-times"></i> Limpiar búsqueda
+            </button>
+        </div>
+
+        <!-- Sección de Categorías -->
+        <section class="categories-section">
+            <div class="categories-header">
+                <h2>Categorías de Documentos</h2>
+                <button class="category-manager-btn" id="categoryManagerBtn" style="display: none;">
+                    <i class="fas fa-cog"></i> Gestionar Categorías
+                </button>
+            </div>
+            <div class="categories-filters" id="categoriesFilters">
+                <!-- Los filtros de categorías se cargarán aquí dinámicamente -->
+            </div>
+        </section>
+
         <section class="upload-section" id="uploadSection">
             <h2>Subir Documentos</h2>
             <div class="upload-area" id="uploadArea">
@@ -1003,38 +1094,40 @@
                 <p class="file-types">Soporta: PDF, DOC, DOCX, JPG, PNG, GIF</p>
                 <input type="file" id="fileInput" class="file-input" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif">
             </div>
+            
+            <!-- Lista de archivos seleccionados -->
+            <div class="selected-files" id="selectedFiles">
+                <h4>Archivos seleccionados:</h4>
+                <div class="file-list-preview" id="fileListPreview">
+                    <!-- Los archivos seleccionados se mostrarán aquí -->
+                </div>
+            </div>
+            
+            <!-- Selector de categoría -->
+            <div class="upload-category-selector">
+                <label for="fileCategory">Categoría del documento:</label>
+                <select class="category-select" id="fileCategory">
+                    <!-- Las opciones se llenarán dinámicamente -->
+                </select>
+            </div>
+            
             <button class="btn btn-primary" id="uploadBtn">
                 <i class="fas fa-upload"></i> Subir Archivos
             </button>
         </section>
 
         <section class="files-section">
-            <h2>Mis Documentos</h2>
+            <h2>Documentos Disponibles</h2>
             <div class="file-list" id="fileList">
                 <!-- Los archivos se cargarán aquí dinámicamente -->
             </div>
             <div class="no-results" id="noResults" style="display: none;">
                 <i class="fas fa-search"></i>
                 <h3>No se encontraron resultados</h3>
-                <p>Intenta con otros términos de búsqueda</p>
+                <p>Intenta con otros términos de búsqueda o categorías diferentes</p>
             </div>
         </section>
     </main>
-
-    <!-- Modal para vista previa -->
-    <div class="modal" id="previewModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modalTitle">Vista Previa</h3>
-                <button class="close-modal" id="closeModal">&times;</button>
-            </div>
-            <div class="modal-body" id="modalBody">
-                <div class="preview-container" id="previewContainer">
-                    <!-- El contenido se cargará aquí dinámicamente -->
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Toast notifications -->
     <div class="toast" id="toast"></div>
@@ -1046,250 +1139,186 @@
     </footer>
 
     <script>
-        // =============================================
-        // BASE DE DATOS - IndexedDB
-        // =============================================
-        const DB_NAME = 'GacetasMunicipalesDB';
-        const DB_VERSION = 1;
-        const FILES_STORE = 'files';
-        const USERS_STORE = 'users';
-        
-        let db = null;
+        // Datos persistentes
         let currentUser = null;
+        let files = [];
+        let categories = [];
+        let selectedFiles = [];
+        let currentCategoryFilter = 'all';
+        let currentEditingFile = null;
+        let currentSearchTerm = '';
 
-        // Inicializar la base de datos
-        function initDatabase() {
-            return new Promise((resolve, reject) => {
-                const request = indexedDB.open(DB_NAME, DB_VERSION);
-                
-                request.onerror = () => reject(request.error);
-                request.onsuccess = () => {
-                    db = request.result;
-                    resolve(db);
-                };
-                
-                request.onupgradeneeded = (event) => {
-                    const database = event.target.result;
-                    
-                    // Crear almacén de archivos
-                    if (!database.objectStoreNames.contains(FILES_STORE)) {
-                        const filesStore = database.createObjectStore(FILES_STORE, { keyPath: 'id', autoIncrement: true });
-                        filesStore.createIndex('name', 'name', { unique: false });
-                        filesStore.createIndex('type', 'type', { unique: false });
-                        filesStore.createIndex('date', 'date', { unique: false });
-                    }
-                    
-                    // Crear almacén de usuarios
-                    if (!database.objectStoreNames.contains(USERS_STORE)) {
-                        const usersStore = database.createObjectStore(USERS_STORE, { keyPath: 'id', autoIncrement: true });
-                        usersStore.createIndex('username', 'username', { unique: true });
-                        
-                        // Insertar usuarios por defecto
-                        const defaultUsers = [
-                            { id: 1, username: 'admin', password: 'admin123', role: 'admin', name: 'Administrador' },
-                            { id: 2, username: 'usuario', password: 'usuario123', role: 'user', name: 'Usuario Regular' }
-                        ];
-                        
-                        defaultUsers.forEach(user => {
-                            usersStore.add(user);
-                        });
-                    }
-                };
-            });
-        }
-
-        // Guardar archivo en la base de datos
-        function saveFileToDB(file) {
-            return new Promise((resolve, reject) => {
-                const transaction = db.transaction([FILES_STORE], 'readwrite');
-                const store = transaction.objectStore(FILES_STORE);
-                const request = store.add(file);
-                
-                request.onsuccess = () => resolve(request.result);
-                request.onerror = () => reject(request.error);
-            });
-        }
-
-        // Obtener todos los archivos de la base de datos
-        function getAllFilesFromDB() {
-            return new Promise((resolve, reject) => {
-                const transaction = db.transaction([FILES_STORE], 'readonly');
-                const store = transaction.objectStore(FILES_STORE);
-                const request = store.getAll();
-                
-                request.onsuccess = () => resolve(request.result);
-                request.onerror = () => reject(request.error);
-            });
-        }
-
-        // Actualizar archivo en la base de datos
-        function updateFileInDB(file) {
-            return new Promise((resolve, reject) => {
-                const transaction = db.transaction([FILES_STORE], 'readwrite');
-                const store = transaction.objectStore(FILES_STORE);
-                const request = store.put(file);
-                
-                request.onsuccess = () => resolve(request.result);
-                request.onerror = () => reject(request.error);
-            });
-        }
-
-        // Eliminar archivo de la base de datos
-        function deleteFileFromDB(fileId) {
-            return new Promise((resolve, reject) => {
-                const transaction = db.transaction([FILES_STORE], 'readwrite');
-                const store = transaction.objectStore(FILES_STORE);
-                const request = store.delete(fileId);
-                
-                request.onsuccess = () => resolve(request.result);
-                request.onerror = () => reject(request.error);
-            });
-        }
-
-        // Verificar credenciales de usuario
-        function authenticateUser(username, password) {
-            return new Promise((resolve, reject) => {
-                const transaction = db.transaction([USERS_STORE], 'readonly');
-                const store = transaction.objectStore(USERS_STORE);
-                const index = store.index('username');
-                const request = index.get(username);
-                
-                request.onsuccess = () => {
-                    const user = request.result;
-                    if (user && user.password === password) {
-                        resolve(user);
-                    } else {
-                        resolve(null);
-                    }
-                };
-                
-                request.onerror = () => reject(request.error);
-            });
-        }
-
-        // =============================================
-        // SISTEMA DE AUTENTICACIÓN
-        // =============================================
+        // Elementos del DOM
         const loginModal = document.getElementById('loginModal');
         const loginForm = document.getElementById('loginForm');
         const userActions = document.getElementById('userActions');
         const uploadSection = document.getElementById('uploadSection');
-
-        // Mostrar/ocultar elementos según el rol del usuario
-        function updateUIForUser() {
-            if (currentUser) {
-                // Actualizar información del usuario en el header
-                userActions.innerHTML = `
-                    <div class="user-info">
-                        <span>Bienvenido, ${currentUser.name}</span>
-                        <span class="user-role ${currentUser.role}">${currentUser.role === 'admin' ? 'Administrador' : 'Usuario'}</span>
-                        <button class="logout-btn" id="logoutBtn">
-                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-                        </button>
-                    </div>
-                `;
-                
-                // Mostrar/ocultar sección de subida según el rol
-                if (currentUser.role === 'user') {
-                    uploadSection.style.display = 'none';
-                } else {
-                    uploadSection.style.display = 'block';
-                }
-                
-                // Agregar event listener al botón de cerrar sesión
-                document.getElementById('logoutBtn').addEventListener('click', logout);
-                
-                // Ocultar modal de login
-                loginModal.style.display = 'none';
-            } else {
-                // Mostrar modal de login si no hay usuario autenticado
-                loginModal.style.display = 'flex';
-                userActions.innerHTML = '';
-                uploadSection.style.display = 'none';
-            }
-        }
-
-        // Función de login
-        async function login(username, password) {
-            try {
-                const user = await authenticateUser(username, password);
-                if (user) {
-                    currentUser = user;
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    updateUIForUser();
-                    loadFilesFromDB();
-                    showToast(`Bienvenido, ${user.name}`);
-                    return true;
-                } else {
-                    showToast('Credenciales incorrectas', true);
-                    return false;
-                }
-            } catch (error) {
-                console.error('Error en login:', error);
-                showToast('Error al iniciar sesión', true);
-                return false;
-            }
-        }
-
-        // Función de logout
-        function logout() {
-            currentUser = null;
-            localStorage.removeItem('currentUser');
-            updateUIForUser();
-            showToast('Sesión cerrada correctamente');
-        }
-
-        // Verificar si hay una sesión activa al cargar la página
-        function checkExistingSession() {
-            const savedUser = localStorage.getItem('currentUser');
-            if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-                updateUIForUser();
-                loadFilesFromDB();
-            } else {
-                updateUIForUser();
-            }
-        }
-
-        // =============================================
-        // GESTIÓN DE ARCHIVOS
-        // =============================================
-        let files = [];
-
-        // Cargar archivos desde la base de datos
-        async function loadFilesFromDB() {
-            try {
-                files = await getAllFilesFromDB();
-                renderFiles(files);
-            } catch (error) {
-                console.error('Error al cargar archivos:', error);
-                showToast('Error al cargar los archivos', true);
-            }
-        }
-
-        // Elementos del DOM
+        const publicAccessInfo = document.getElementById('publicAccessInfo');
+        const categoryManagerBtn = document.getElementById('categoryManagerBtn');
         const fileInput = document.getElementById('fileInput');
         const uploadArea = document.getElementById('uploadArea');
         const uploadBtn = document.getElementById('uploadBtn');
+        const selectedFilesContainer = document.getElementById('selectedFiles');
+        const fileListPreview = document.getElementById('fileListPreview');
+        const fileCategorySelect = document.getElementById('fileCategory');
         const fileList = document.getElementById('fileList');
-        const searchInput = document.getElementById('searchInput');
-        const noResults = document.getElementById('noResults');
+        const categoriesFilters = document.getElementById('categoriesFilters');
+        const categoryModal = document.getElementById('categoryModal');
+        const closeCategoryModal = document.getElementById('closeCategoryModal');
+        const categoryList = document.getElementById('categoryList');
+        const newCategoryName = document.getElementById('newCategoryName');
+        const newCategoryColor = document.getElementById('newCategoryColor');
+        const addCategoryBtn = document.getElementById('addCategoryBtn');
+        const descriptionModal = document.getElementById('descriptionModal');
+        const closeDescription = document.getElementById('closeDescription');
+        const descriptionTitle = document.getElementById('descriptionTitle');
+        const descriptionText = document.getElementById('descriptionText');
+        const descriptionEditor = document.getElementById('descriptionEditor');
+        const editDescriptionBtn = document.getElementById('editDescriptionBtn');
+        const cancelEdit = document.getElementById('cancelEdit');
+        const saveDescription = document.getElementById('saveDescription');
+        const descriptionActions = document.getElementById('descriptionActions');
+        const editActions = document.getElementById('editActions');
         const previewModal = document.getElementById('previewModal');
-        const closeModal = document.getElementById('closeModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalBody = document.getElementById('modalBody');
+        const closePreview = document.getElementById('closePreview');
+        const previewTitle = document.getElementById('previewTitle');
         const previewContainer = document.getElementById('previewContainer');
+        const downloadPreviewBtn = document.getElementById('downloadPreviewBtn');
+        const sharePreviewBtn = document.getElementById('sharePreviewBtn');
+        const searchInput = document.getElementById('searchInput');
+        const searchResultsInfo = document.getElementById('searchResultsInfo');
+        const searchResultsText = document.getElementById('searchResultsText');
+        const clearSearch = document.getElementById('clearSearch');
+        const noResults = document.getElementById('noResults');
         const toast = document.getElementById('toast');
 
-        // Variables para el editor de descripciones
-        let currentEditingFileId = null;
-        let originalDescription = '';
+        // Función para cargar datos desde localStorage
+        function loadDataFromStorage() {
+            try {
+                const savedFiles = localStorage.getItem('gacetasMunicipales_files');
+                const savedCategories = localStorage.getItem('gacetasMunicipales_categories');
+                
+                if (savedFiles) {
+                    files = JSON.parse(savedFiles);
+                } else {
+                    // Datos de ejemplo iniciales si no hay datos guardados
+                    files = [
+                        {
+                            id: 1,
+                            name: 'Ordenanza Municipal 001-2025',
+                            type: 'pdf',
+                            size: '2.5 MB',
+                            date: '15/03/2025',
+                            description: 'Ordenanza municipal sobre regulación de establecimientos comerciales.',
+                            coverColor: 'pdf-cover',
+                            categoryId: 1,
+                            category: 'Ordenanzas Municipales',
+                            content: '#' // En una implementación real sería la URL del archivo
+                        },
+                        {
+                            id: 2,
+                            name: 'Decreto Alcaldicio 045-2025',
+                            type: 'docx',
+                            size: '1.2 MB',
+                            date: '10/03/2025',
+                            description: 'Decreto sobre medidas de seguridad ciudadana.',
+                            coverColor: 'doc-cover',
+                            categoryId: 2,
+                            category: 'Decretos',
+                            content: '#'
+                        }
+                    ];
+                }
+                
+                if (savedCategories) {
+                    categories = JSON.parse(savedCategories);
+                } else {
+                    // Categorías iniciales si no hay datos guardados
+                    categories = [
+                        { id: 1, name: 'Ordenanzas Municipales', color: '#3498db', count: 0 },
+                        { id: 2, name: 'Decretos', color: '#e74c3c', count: 0 },
+                        { id: 3, name: 'Resoluciones', color: '#2ecc71', count: 0 },
+                        { id: 4, name: 'Actas de Sesiones', color: '#f39c12', count: 0 }
+                    ];
+                }
+                
+                // Actualizar contadores de categorías
+                updateCategoryCounts();
+            } catch (error) {
+                console.error('Error al cargar datos desde localStorage:', error);
+                // En caso de error, inicializar con datos por defecto
+                initializeDefaultData();
+            }
+        }
 
-        // Variables globales para control de notas flotantes
-        let activeNote = null;
-        let noteCloseTimeouts = {};
+        // Función para inicializar datos por defecto
+        function initializeDefaultData() {
+            files = [
+                {
+                    id: 1,
+                    name: 'Ordenanza Municipal 001-2025',
+                    type: 'pdf',
+                    size: '2.5 MB',
+                    date: '15/03/2025',
+                    description: 'Ordenanza municipal sobre regulación de establecimientos comerciales.',
+                    coverColor: 'pdf-cover',
+                    categoryId: 1,
+                    category: 'Ordenanzas Municipales',
+                    content: '#'
+                },
+                {
+                    id: 2,
+                    name: 'Decreto Alcaldicio 045-2025',
+                    type: 'docx',
+                    size: '1.2 MB',
+                    date: '10/03/2025',
+                    description: 'Decreto sobre medidas de seguridad ciudadana.',
+                    coverColor: 'doc-cover',
+                    categoryId: 2,
+                    category: 'Decretos',
+                    content: '#'
+                }
+            ];
+            
+            categories = [
+                { id: 1, name: 'Ordenanzas Municipales', color: '#3498db', count: 0 },
+                { id: 2, name: 'Decretos', color: '#e74c3c', count: 0 },
+                { id: 3, name: 'Resoluciones', color: '#2ecc71', count: 0 },
+                { id: 4, name: 'Actas de Sesiones', color: '#f39c12', count: 0 }
+            ];
+            
+            updateCategoryCounts();
+        }
 
-        // Función para mostrar notificaciones toast
+        // Función para actualizar contadores de categorías
+        function updateCategoryCounts() {
+            categories.forEach(category => {
+                category.count = files.filter(file => file.categoryId === category.id).length;
+            });
+        }
+
+        // Función para guardar datos en localStorage
+        function saveDataToStorage() {
+            try {
+                localStorage.setItem('gacetasMunicipales_files', JSON.stringify(files));
+                localStorage.setItem('gacetasMunicipales_categories', JSON.stringify(categories));
+            } catch (error) {
+                console.error('Error al guardar datos en localStorage:', error);
+                showToast('Error al guardar los datos. Es posible que el almacenamiento esté lleno.', true);
+            }
+        }
+
+        // Función para guardar archivos
+        function saveFiles() {
+            saveDataToStorage();
+        }
+
+        // Función para guardar categorías
+        function saveCategories() {
+            saveDataToStorage();
+        }
+
+        // Función para mostrar notificaciones
         function showToast(message, isError = false) {
             toast.textContent = message;
             toast.className = 'toast' + (isError ? ' error' : '') + ' show';
@@ -1299,249 +1328,13 @@
             }, 3000);
         }
 
-        // Función para activar una nota flotante
-        function activateNote(fileId) {
-            // Cerrar nota activa anterior si existe
-            if (activeNote && activeNote !== fileId) {
-                deactivateNote(activeNote);
-            }
-            
-            // Limpiar timeout de cierre si existe
-            if (noteCloseTimeouts[fileId]) {
-                clearTimeout(noteCloseTimeouts[fileId]);
-                delete noteCloseTimeouts[fileId];
-            }
-            
-            const fileCard = document.querySelector(`.file-card[data-id="${fileId}"]`);
-            if (fileCard) {
-                const note = fileCard.querySelector('.file-floating-note');
-                note.classList.add('active');
-                activeNote = fileId;
-            }
-        }
-
-        // Función para desactivar una nota flotante
-        function deactivateNote(fileId) {
-            const fileCard = document.querySelector(`.file-card[data-id="${fileId}"]`);
-            if (fileCard) {
-                const note = fileCard.querySelector('.file-floating-note');
-                note.classList.remove('active');
-                
-                if (activeNote === fileId) {
-                    activeNote = null;
-                }
-            }
-        }
-
-        // Función para cerrar nota flotante con delay (para evitar cierre accidental)
-        function scheduleNoteClose(fileId) {
-            // Limpiar timeout anterior si existe
-            if (noteCloseTimeouts[fileId]) {
-                clearTimeout(noteCloseTimeouts[fileId]);
-            }
-            
-            noteCloseTimeouts[fileId] = setTimeout(() => {
-                deactivateNote(fileId);
-                delete noteCloseTimeouts[fileId];
-            }, 300);
-        }
-
-        // Función para cancelar cierre programado
-        function cancelNoteClose(fileId) {
-            if (noteCloseTimeouts[fileId]) {
-                clearTimeout(noteCloseTimeouts[fileId]);
-                delete noteCloseTimeouts[fileId];
-            }
-        }
-
-        // Función para activar el modo edición en la nota flotante
-        function enableDescriptionEdit(fileId, currentDescription) {
-            // Verificar permisos
-            if (currentUser.role !== 'admin') {
-                showToast('No tiene permisos para editar descripciones', true);
-                return;
-            }
-            
-            currentEditingFileId = fileId;
-            originalDescription = currentDescription;
-            
-            // Asegurarse de que la nota esté activa
-            activateNote(fileId);
-            
-            const fileCard = document.querySelector(`.file-card[data-id="${fileId}"]`);
-            const noteContent = fileCard.querySelector('.note-content');
-            const editBtn = fileCard.querySelector('.edit-description-btn');
-            const closeBtn = fileCard.querySelector('.note-close-btn');
-            
-            // Ocultar botones temporalmente durante la edición
-            editBtn.style.display = 'none';
-            closeBtn.style.display = 'none';
-            
-            // Reemplazar el contenido con un textarea editable
-            noteContent.innerHTML = `
-                <textarea class="description-editor">${currentDescription}</textarea>
-                <div class="edit-controls">
-                    <button class="save-btn">💾 Guardar</button>
-                    <button class="cancel-btn">❌ Cancelar</button>
-                </div>
-            `;
-
-            // Agregar event listeners a los botones
-            const saveBtn = noteContent.querySelector('.save-btn');
-            const cancelBtn = noteContent.querySelector('.cancel-btn');
-            const textarea = noteContent.querySelector('.description-editor');
-
-            saveBtn.addEventListener('click', () => saveDescriptionEdit(fileId, textarea.value));
-            cancelBtn.addEventListener('click', cancelDescriptionEdit);
-            
-            // Enfocar el textarea
-            textarea.focus();
-            
-            // Permitir guardar con Ctrl+Enter
-            textarea.addEventListener('keydown', (e) => {
-                if (e.ctrlKey && e.key === 'Enter') {
-                    saveDescriptionEdit(fileId, textarea.value);
-                }
-            });
-
-            // Prevenir cierre de la nota durante la edición
-            cancelNoteClose(fileId);
-        }
-
-        // Función para guardar la descripción editada
-        async function saveDescriptionEdit(fileId, newDescription) {
-            const file = files.find(f => f.id === fileId);
-            if (file) {
-                file.description = newDescription.trim() || originalDescription;
-                
-                try {
-                    await updateFileInDB(file);
-                    showToast('✅ Descripción actualizada correctamente');
-                } catch (error) {
-                    console.error('Error al guardar descripción:', error);
-                    showToast('Error al guardar la descripción', true);
-                }
-            }
-            currentEditingFileId = null;
-            originalDescription = '';
-            
-            // Volver a renderizar para mostrar los cambios
-            renderFiles(files);
-        }
-
-        // Función para cancelar la edición
-        function cancelDescriptionEdit() {
-            currentEditingFileId = null;
-            originalDescription = '';
-            
-            // Volver a renderizar para restaurar el estado original
-            renderFiles(files);
-            showToast('Edición cancelada');
-        }
-
-        // Funcionalidad de arrastrar y soltar
-        uploadArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadArea.style.borderColor = 'var(--primary-color)';
-            uploadArea.style.backgroundColor = 'rgba(52, 152, 219, 0.1)';
-        });
-
-        uploadArea.addEventListener('dragleave', () => {
-            uploadArea.style.borderColor = '#bdc3c7';
-            uploadArea.style.backgroundColor = 'transparent';
-        });
-
-        uploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadArea.style.borderColor = '#bdc3c7';
-            uploadArea.style.backgroundColor = 'transparent';
-            
-            if (e.dataTransfer.files.length) {
-                handleFiles(e.dataTransfer.files);
-            }
-        });
-
-        // Abrir selector de archivos al hacer clic en el área de subida
-        uploadArea.addEventListener('click', () => {
-            fileInput.click();
-        });
-
-        // Manejar archivos seleccionados
-        fileInput.addEventListener('change', () => {
-            if (fileInput.files.length) {
-                handleFiles(fileInput.files);
-            }
-        });
-
-        // Subir archivos al hacer clic en el botón
-        uploadBtn.addEventListener('click', () => {
-            fileInput.click();
-        });
-
-        // Función para manejar archivos seleccionados
-        async function handleFiles(selectedFiles) {
-            // Verificar permisos
-            if (currentUser.role !== 'admin') {
-                showToast('No tiene permisos para subir archivos', true);
-                return;
-            }
-            
-            for (let i = 0; i < selectedFiles.length; i++) {
-                const file = selectedFiles[i];
-                
-                // Verificar tipo de archivo
-                const fileType = getFileType(file.name);
-                
-                // Convertir archivo a base64 para almacenamiento
-                const fileContent = await readFileAsDataURL(file);
-                
-                // Crear objeto de archivo
-                const newFile = {
-                    name: file.name,
-                    type: fileType,
-                    size: formatFileSize(file.size),
-                    date: new Date().toISOString().split('T')[0],
-                    preview: fileType === 'jpg' || fileType === 'png' || fileType === 'gif' ? 'image' : fileType,
-                    content: fileContent,
-                    description: `📄 ${file.name.replace(/\.[^/.]+$/, "")} - Archivo ${fileType.toUpperCase()} subido el ${new Date().toLocaleDateString()}.`,
-                    coverColor: getCoverClass(fileType),
-                    tags: getAutoTags(fileType, file.name),
-                    category: getAutoCategory(fileType, file.name),
-                    author: currentUser.name,
-                    uploadedBy: currentUser.id
-                };
-                
-                try {
-                    // Guardar en la base de datos
-                    const fileId = await saveFileToDB(newFile);
-                    newFile.id = fileId;
-                    
-                    // Agregar a la lista de archivos
-                    files.unshift(newFile);
-                } catch (error) {
-                    console.error('Error al guardar archivo:', error);
-                    showToast(`Error al guardar ${file.name}`, true);
-                }
-            }
-            
-            // Volver a renderizar la lista
-            renderFiles(files);
-            
-            // Limpiar input
-            fileInput.value = '';
-            
-            // Mostrar mensaje de éxito
-            showToast(`Se han agregado ${selectedFiles.length} archivo(s) correctamente.`);
-        }
-
-        // Función para leer archivo como Data URL
-        function readFileAsDataURL(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = reject;
-                reader.readAsDataURL(file);
-            });
+        // Función para formatear el tamaño del archivo
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
         }
 
         // Función para determinar el tipo de archivo
@@ -1557,10 +1350,10 @@
                 doc: "doc-cover",
                 docx: "doc-cover",
                 jpg: "image-cover",
+                jpeg: "image-cover",
                 png: "image-cover",
                 gif: "image-cover"
             };
-            
             return coverClasses[fileType] || "doc-cover";
         }
 
@@ -1571,189 +1364,185 @@
                 doc: "fas fa-file-word",
                 docx: "fas fa-file-word",
                 jpg: "fas fa-file-image",
+                jpeg: "fas fa-file-image",
                 png: "fas fa-file-image",
                 gif: "fas fa-file-image"
             };
-            
             return coverIcons[fileType] || "fas fa-file";
         }
 
-        // Función para obtener el icono de nota
-        function getNoteIcon(fileType) {
-            const noteIcons = {
-                pdf: "fas fa-file-pdf",
-                doc: "fas fa-file-word",
-                docx: "fas fa-file-word",
-                jpg: "fas fa-file-image",
-                png: "fas fa-file-image",
-                gif: "fas fa-file-image"
-            };
-            
-            return noteIcons[fileType] || "fas fa-file";
-        }
+        // Actualizar interfaz según el usuario
+        function updateUIForUser() {
+            if (currentUser && currentUser.role === 'admin') {
+                userActions.innerHTML = `
+                    <div class="user-info">
+                        <span>${currentUser.name}</span>
+                        <span class="user-role admin">Administrador</span>
+                        <button class="logout-btn" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                        </button>
+                    </div>
+                `;
+                uploadSection.style.display = 'block';
+                categoryManagerBtn.style.display = 'block';
+                publicAccessInfo.style.display = 'none';
+                loginModal.style.display = 'none';
 
-        // Función para generar título corto para portada
-        function generateShortTitle(filename) {
-            const nameWithoutExt = filename.replace(/\.[^/.]+$/, "");
-            if (nameWithoutExt.length <= 20) {
-                return nameWithoutExt;
+                // Agregar event listener al botón de cerrar sesión
+                document.getElementById('logoutBtn').addEventListener('click', logout);
+            } else {
+                userActions.innerHTML = `
+                    <button class="btn btn-secondary" id="adminLoginBtn">
+                        <i class="fas fa-user-shield"></i> Acceso Admin
+                    </button>
+                `;
+                uploadSection.style.display = 'none';
+                categoryManagerBtn.style.display = 'none';
+                publicAccessInfo.style.display = 'block';
+
+                document.getElementById('adminLoginBtn').addEventListener('click', () => {
+                    loginModal.style.display = 'flex';
+                });
             }
-            return nameWithoutExt.substring(0, 17) + '...';
         }
 
-        // Función para formatear el tamaño del archivo
-        function formatFileSize(bytes) {
-            if (bytes === 0) return '0 Bytes';
-            const k = 1024;
-            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        // Función de login
+        function login(username, password) {
+            if (username === 'admin' && password === 'admin123') {
+                currentUser = {
+                    username: 'admin',
+                    name: 'Administrador',
+                    role: 'admin'
+                };
+                localStorage.setItem('gacetasMunicipales_currentUser', JSON.stringify(currentUser));
+                updateUIForUser();
+                loadFiles();
+                showToast('Bienvenido, modo administrador activado');
+                return true;
+            } else {
+                showToast('Credenciales incorrectas', true);
+                return false;
+            }
         }
 
-        // Funciones auxiliares para categorización automática
-        function getAutoTags(fileType, filename) {
-            const baseTags = ["Subido", "Nuevo"];
-            const nameLower = filename.toLowerCase();
+        // Función de logout
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('gacetasMunicipales_currentUser');
+            updateUIForUser();
+            loadFiles();
+            showToast('Sesión cerrada correctamente');
+        }
+
+        // Verificar sesión existente
+        function checkExistingSession() {
+            const savedUser = localStorage.getItem('gacetasMunicipales_currentUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+            }
             
-            // Tags basados en tipo de archivo
-            const typeTags = {
-                pdf: ["Documento", "PDF"],
-                doc: ["Documento", "Texto"],
-                docx: ["Documento", "Texto"],
-                jpg: ["Imagen", "Foto"],
-                png: ["Imagen", "Gráfico"],
-                gif: ["Imagen", "Animación"]
-            };
-
-            // Tags basados en palabras clave del nombre
-            const contentTags = [];
-            if (nameLower.includes('informe') || nameLower.includes('reporte')) contentTags.push("Reporte");
-            if (nameLower.includes('contrato') || nameLower.includes('acuerdo')) contentTags.push("Legal");
-            if (nameLower.includes('manual') || nameLower.includes('guía')) contentTags.push("Manual");
-            if (nameLower.includes('presentación') || nameLower.includes('ppt')) contentTags.push("Presentación");
-            if (nameLower.includes('logo') || nameLower.includes('branding')) contentTags.push("Diseño");
-            if (nameLower.includes('diagrama') || nameLower.includes('flujo')) contentTags.push("Diagrama");
-            if (nameLower.includes('financiero') || nameLower.includes('presupuesto')) contentTags.push("Finanzas");
-
-            return [...baseTags, ...(typeTags[fileType] || []), ...contentTags.slice(0, 2)];
-        }
-
-        function getAutoCategory(fileType, filename) {
-            const nameLower = filename.toLowerCase();
+            // Cargar datos desde localStorage
+            loadDataFromStorage();
             
-            // Categorías basadas en contenido
-            if (nameLower.includes('informe') || nameLower.includes('reporte') || nameLower.includes('análisis')) 
-                return "Reportes";
-            if (nameLower.includes('contrato') || nameLower.includes('legal') || nameLower.includes('acuerdo')) 
-                return "Legal";
-            if (nameLower.includes('manual') || nameLower.includes('guía') || nameLower.includes('instrucciones')) 
-                return "Documentación";
-            if (nameLower.includes('presentación') || nameLower.includes('ppt') || nameLower.includes('estrategia')) 
-                return "Presentaciones";
-            if (nameLower.includes('logo') || nameLower.includes('branding') || nameLower.includes('diseño')) 
-                return "Diseño";
-            if (nameLower.includes('diagrama') || nameLower.includes('flujo') || nameLower.includes('proceso')) 
-                return "Diagramas";
-            if (nameLower.includes('financiero') || nameLower.includes('presupuesto') || nameLower.includes('contabilidad')) 
-                return "Finanzas";
-
-            // Categorías basadas en tipo de archivo
-            const typeCategories = {
-                pdf: "Documentos",
-                doc: "Documentos", 
-                docx: "Documentos",
-                jpg: "Imágenes",
-                png: "Imágenes",
-                gif: "Imágenes"
-            };
-
-            return typeCategories[fileType] || "General";
+            updateUIForUser();
+            loadFiles();
         }
 
-        // Función para renderizar archivos
+        // Cargar archivos
+        function loadFiles() {
+            renderFiles(files);
+            renderCategoryFilters();
+            populateCategorySelectors();
+        }
+
+        // Función de búsqueda
+        function searchFiles(searchTerm) {
+            currentSearchTerm = searchTerm.toLowerCase().trim();
+            
+            if (currentSearchTerm === '') {
+                // Si no hay término de búsqueda, mostrar todos los archivos
+                searchResultsInfo.style.display = 'none';
+                renderFiles(files);
+                renderCategoryFilters();
+                return;
+            }
+
+            // Filtrar archivos según el término de búsqueda
+            let filteredFiles = files.filter(file => {
+                const searchInName = file.name.toLowerCase().includes(currentSearchTerm);
+                const searchInDescription = file.description.toLowerCase().includes(currentSearchTerm);
+                const fileCategory = categories.find(cat => cat.id === file.categoryId);
+                const searchInCategory = fileCategory ? fileCategory.name.toLowerCase().includes(currentSearchTerm) : false;
+                
+                return searchInName || searchInDescription || searchInCategory;
+            });
+
+            // Mostrar información de resultados
+            searchResultsInfo.style.display = 'block';
+            searchResultsText.textContent = `Se encontraron ${filteredFiles.length} resultado(s) para "${searchTerm}"`;
+            
+            // Renderizar archivos filtrados
+            renderFiles(filteredFiles);
+            
+            // Actualizar filtros de categoría para mostrar solo las categorías con resultados
+            renderCategoryFiltersForSearch(filteredFiles);
+        }
+
+        // Renderizar archivos
         function renderFiles(filesToRender) {
             if (filesToRender.length === 0) {
                 fileList.innerHTML = '';
                 noResults.style.display = 'block';
                 return;
             }
-            
+
             noResults.style.display = 'none';
-            
-            fileList.innerHTML = filesToRender.map(file => `
-                <div class="file-card" data-id="${file.id}" data-name="${file.name.toLowerCase()}">
-                    <!-- Nota flotante -->
-                    <div class="file-floating-note">
-                        <button class="note-close-btn" title="Cerrar nota" data-id="${file.id}">×</button>
-                        <div class="note-header">
-                            <div class="note-icon">
-                                <i class="${getNoteIcon(file.type)}"></i>
-                            </div>
-                            <div class="note-title">${file.name}</div>
-                            ${currentUser.role === 'admin' ? `
-                                <button class="edit-description-btn" 
-                                        title="Editar descripción" 
-                                        data-id="${file.id}">
-                                    ✏️ Editar
-                                </button>
-                            ` : ''}
-                        </div>
-                        <div class="note-content">
-                            ${file.description}
-                        </div>
-                        <div class="note-meta">
-                            <div class="meta-item">
-                                <i class="fas fa-hashtag"></i>
-                                <span>${file.category}</span>
-                            </div>
-                            <div class="meta-item">
-                                <i class="fas fa-user"></i>
-                                <span>${file.author}</span>
-                            </div>
-                            <div class="meta-item">
-                                <i class="fas fa-calendar"></i>
-                                <span>${file.date}</span>
-                            </div>
-                            <div class="meta-item">
-                                <i class="fas fa-weight-hanging"></i>
-                                <span>${file.size}</span>
-                            </div>
-                        </div>
-                        <div class="note-tags">
-                            ${file.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-                        </div>
-                    </div>
-                    
+            fileList.innerHTML = filesToRender.map(file => {
+                const fileCategory = categories.find(cat => cat.id === file.categoryId) || 
+                                   { name: 'Sin categoría', color: '#95a5a6' };
+                
+                // Resaltar términos de búsqueda
+                let fileName = file.name;
+                let fileDescription = file.description || 'No hay descripción disponible';
+                
+                if (currentSearchTerm) {
+                    const regex = new RegExp(`(${currentSearchTerm})`, 'gi');
+                    fileName = fileName.replace(regex, '<mark>$1</mark>');
+                    fileDescription = fileDescription.replace(regex, '<mark>$1</mark>');
+                }
+                
+                return `
+                <div class="file-card" data-id="${file.id}">
                     <div class="file-preview">
-                        ${file.preview === 'image' 
-                            ? `<img src="${file.content}" alt="${file.name}">`
-                            : `
-                                <div class="cover-preview ${file.coverColor}">
-                                    <i class="cover-icon ${getCoverIcon(file.type)}"></i>
-                                    <div class="cover-title">${generateShortTitle(file.name)}</div>
-                                    <div class="cover-subtitle">${file.type.toUpperCase()}</div>
-                                    <div class="cover-corner">${file.size}</div>
-                                </div>
-                            `
-                        }
+                        <div class="cover-preview ${file.coverColor}">
+                            <i class="cover-icon ${getCoverIcon(file.type)}"></i>
+                            <div class="cover-title">${file.name.substring(0, 20)}${file.name.length > 20 ? '...' : ''}</div>
+                            <div class="cover-subtitle">${file.type.toUpperCase()}</div>
+                        </div>
                     </div>
                     <div class="file-info">
-                        <div class="file-name">${file.name}</div>
+                        <div class="file-category-badge" style="background: ${fileCategory.color}">
+                            ${fileCategory.name}
+                        </div>
+                        <div class="file-name">${fileName}</div>
                         <div class="file-meta">
                             <span>${file.type.toUpperCase()}</span>
                             <span>${file.size}</span>
                         </div>
                         <div class="file-actions">
-                            <button class="download" title="Descargar" data-id="${file.id}">
-                                <i class="fas fa-download"></i>
+                            <button class="view-description" title="Ver descripción" data-id="${file.id}">
+                                <i class="fas fa-info-circle"></i>
                             </button>
                             <button class="preview" title="Vista previa" data-id="${file.id}">
                                 <i class="fas fa-eye"></i>
                             </button>
+                            <button class="download" title="Descargar" data-id="${file.id}">
+                                <i class="fas fa-download"></i>
+                            </button>
                             <button class="share" title="Compartir" data-id="${file.id}">
                                 <i class="fas fa-share-alt"></i>
                             </button>
-                            ${currentUser.role === 'admin' ? `
+                            ${currentUser && currentUser.role === 'admin' ? `
                                 <button class="delete" title="Eliminar" data-id="${file.id}">
                                     <i class="fas fa-trash"></i>
                                 </button>
@@ -1761,400 +1550,666 @@
                         </div>
                     </div>
                 </div>
-            `).join('');
-            
-            // Agregar event listeners a los botones principales
-            addButtonEventListeners();
-            
-            // Agregar event listeners a los botones de edición de descripción (solo para admin)
-            if (currentUser.role === 'admin') {
-                addDescriptionEditListeners();
-            }
-            
-            // Agregar event listeners para el comportamiento de notas flotantes
-            addNoteBehaviorListeners();
+                `;
+            }).join('');
+
+            // Agregar event listeners a los botones
+            addFileEventListeners();
         }
 
-        // Función para agregar event listeners a los botones principales
-        function addButtonEventListeners() {
-            // Botones de descarga
-            document.querySelectorAll('.file-actions .download').forEach(button => {
+        // Agregar event listeners a los botones de archivos
+        function addFileEventListeners() {
+            // Botón de descripción
+            document.querySelectorAll('.view-description').forEach(button => {
                 button.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const fileId = parseInt(e.currentTarget.getAttribute('data-id'));
-                    downloadFile(fileId);
+                    const fileId = e.currentTarget.getAttribute('data-id');
+                    showDescription(fileId);
                 });
             });
-            
-            // Botones de vista previa
-            document.querySelectorAll('.file-actions .preview').forEach(button => {
+
+            // Botón de vista previa
+            document.querySelectorAll('.preview').forEach(button => {
                 button.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const fileId = parseInt(e.currentTarget.getAttribute('data-id'));
+                    const fileId = e.currentTarget.getAttribute('data-id');
                     previewFile(fileId);
                 });
             });
-            
-            // Botones de compartir
-            document.querySelectorAll('.file-actions .share').forEach(button => {
+
+            // Botón de descarga
+            document.querySelectorAll('.download').forEach(button => {
                 button.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const fileId = parseInt(e.currentTarget.getAttribute('data-id'));
+                    const fileId = e.currentTarget.getAttribute('data-id');
+                    downloadFile(fileId);
+                });
+            });
+
+            // Botón de compartir
+            document.querySelectorAll('.share').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const fileId = e.currentTarget.getAttribute('data-id');
                     shareFile(fileId);
                 });
             });
-            
-            // Botones de eliminar (solo para admin)
-            if (currentUser.role === 'admin') {
-                document.querySelectorAll('.file-actions .delete').forEach(button => {
+
+            // Botón de eliminar (solo admin)
+            if (currentUser && currentUser.role === 'admin') {
+                document.querySelectorAll('.delete').forEach(button => {
                     button.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const fileId = parseInt(e.currentTarget.getAttribute('data-id'));
+                        const fileId = e.currentTarget.getAttribute('data-id');
                         deleteFile(fileId);
                     });
                 });
             }
         }
 
-        // Función para agregar event listeners a los botones de edición
-        function addDescriptionEditListeners() {
-            document.querySelectorAll('.edit-description-btn').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const fileId = parseInt(e.currentTarget.getAttribute('data-id'));
-                    const file = files.find(f => f.id === fileId);
-                    if (file) {
-                        enableDescriptionEdit(fileId, file.description);
-                    }
-                });
-            });
-        }
+        // Mostrar descripción
+        function showDescription(fileId) {
+            const file = files.find(f => f.id == fileId);
+            if (!file) return;
 
-        // Función para agregar event listeners al comportamiento de notas flotantes
-        function addNoteBehaviorListeners() {
-            // Event listeners para las tarjetas de archivo (activar nota)
-            document.querySelectorAll('.file-card').forEach(card => {
-                const fileId = parseInt(card.getAttribute('data-id'));
-                
-                // Activar nota al hacer hover en la tarjeta
-                card.addEventListener('mouseenter', () => {
-                    activateNote(fileId);
-                });
-                
-                // Programar cierre al salir de la tarjeta (pero no si el mouse va a la nota)
-                card.addEventListener('mouseleave', (e) => {
-                    // Verificar si el mouse se fue a la nota flotante
-                    const relatedTarget = e.relatedTarget;
-                    const note = card.querySelector('.file-floating-note');
-                    
-                    if (!note.contains(relatedTarget)) {
-                        scheduleNoteClose(fileId);
-                    }
-                });
-            });
-
-            // Event listeners para las notas flotantes (mantener activas)
-            document.querySelectorAll('.file-floating-note').forEach(note => {
-                const fileId = parseInt(note.querySelector('.note-close-btn').getAttribute('data-id'));
-                
-                // Cancelar cierre cuando el mouse entra a la nota
-                note.addEventListener('mouseenter', () => {
-                    cancelNoteClose(fileId);
-                });
-                
-                // Cerrar nota cuando el mouse sale de la nota
-                note.addEventListener('mouseleave', (e) => {
-                    const relatedTarget = e.relatedTarget;
-                    const card = note.closest('.file-card');
-                    
-                    // Solo cerrar si el mouse no fue a la tarjeta principal
-                    if (!card.contains(relatedTarget)) {
-                        scheduleNoteClose(fileId);
-                    }
-                });
-            });
-
-            // Event listeners para los botones de cerrar
-            document.querySelectorAll('.note-close-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const fileId = parseInt(btn.getAttribute('data-id'));
-                    deactivateNote(fileId);
-                });
-            });
-        }
-
-        // Función para descargar archivo
-        function downloadFile(fileId) {
-            const file = files.find(f => f.id === fileId);
-            if (!file) {
-                showToast('Error: Archivo no encontrado', true);
-                return;
+            currentEditingFile = file;
+            descriptionTitle.textContent = `Descripción: ${file.name}`;
+            
+            // Resaltar términos de búsqueda en la descripción
+            let description = file.description || 'No hay descripción disponible para este documento.';
+            if (currentSearchTerm) {
+                const regex = new RegExp(`(${currentSearchTerm})`, 'gi');
+                description = description.replace(regex, '<mark>$1</mark>');
             }
             
-            try {
-                // Crear un enlace temporal para descargar
-                const link = document.createElement('a');
-                link.href = file.content;
-                link.download = file.name;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                
-                showToast(`Descargando: ${file.name}`);
-            } catch (error) {
-                showToast('Error al descargar el archivo', true);
-                console.error('Error al descargar:', error);
+            descriptionText.innerHTML = description;
+            descriptionEditor.value = file.description || '';
+            
+            // Mostrar/ocultar botones según permisos
+            if (currentUser && currentUser.role === 'admin') {
+                descriptionActions.style.display = 'block';
+                editActions.style.display = 'none';
+                descriptionText.style.display = 'block';
+                descriptionEditor.style.display = 'none';
+            } else {
+                descriptionActions.style.display = 'none';
+                editActions.style.display = 'none';
+                descriptionText.style.display = 'block';
+                descriptionEditor.style.display = 'none';
             }
+            
+            descriptionModal.style.display = 'flex';
         }
 
-        // Función para vista previa
+        // Editar descripción
+        function enableDescriptionEdit() {
+            descriptionText.style.display = 'none';
+            descriptionEditor.style.display = 'block';
+            descriptionActions.style.display = 'none';
+            editActions.style.display = 'flex';
+            descriptionEditor.focus();
+        }
+
+        // Guardar descripción
+        function saveDescriptionChanges() {
+            if (!currentEditingFile) return;
+            
+            currentEditingFile.description = descriptionEditor.value;
+            
+            // Guardar cambios
+            saveFiles();
+            
+            // Actualizar la descripción mostrada (con resaltado si hay búsqueda activa)
+            let description = currentEditingFile.description || 'No hay descripción disponible para este documento.';
+            if (currentSearchTerm) {
+                const regex = new RegExp(`(${currentSearchTerm})`, 'gi');
+                description = description.replace(regex, '<mark>$1</mark>');
+            }
+            
+            descriptionText.innerHTML = description;
+            
+            descriptionText.style.display = 'block';
+            descriptionEditor.style.display = 'none';
+            descriptionActions.style.display = 'block';
+            editActions.style.display = 'none';
+            
+            showToast('Descripción guardada correctamente');
+            renderFiles(files);
+        }
+
+        // Cancelar edición de descripción
+        function cancelDescriptionEdit() {
+            descriptionText.style.display = 'block';
+            descriptionEditor.style.display = 'none';
+            descriptionActions.style.display = 'block';
+            editActions.style.display = 'none';
+            descriptionEditor.value = currentEditingFile.description || '';
+        }
+
+        // Vista previa de archivo
         function previewFile(fileId) {
-            const file = files.find(f => f.id === fileId);
-            if (!file) {
-                showToast('Error: Archivo no encontrado', true);
-                return;
-            }
-            
-            modalTitle.textContent = `Vista Previa: ${file.name}`;
-            
-            // Limpiar contenido previo
+            const file = files.find(f => f.id == fileId);
+            if (!file) return;
+
+            previewTitle.textContent = `Vista Previa: ${file.name}`;
             previewContainer.innerHTML = '';
+
+            if (file.type === 'pdf') {
+                const iframe = document.createElement('iframe');
+                iframe.src = file.content;
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                previewContainer.appendChild(iframe);
+            } else if (['jpg', 'jpeg', 'png', 'gif'].includes(file.type)) {
+                const img = document.createElement('img');
+                img.src = file.content;
+                img.alt = file.name;
+                previewContainer.appendChild(img);
+            } else {
+                previewContainer.innerHTML = `
+                    <div class="preview-message">
+                        <i class="fas fa-file ${getCoverIcon(file.type)}" style="font-size: 4rem; color: #3498db; margin-bottom: 1rem;"></i>
+                        <h3>${file.name}</h3>
+                        <p>Vista previa no disponible para este tipo de archivo.</p>
+                        <p>Utilice la función de descarga para ver el contenido completo.</p>
+                    </div>
+                `;
+            }
+
+            // Configurar botones de vista previa
+            downloadPreviewBtn.onclick = () => downloadFile(fileId);
+            sharePreviewBtn.onclick = () => shareFile(fileId);
+
+            previewModal.style.display = 'flex';
+        }
+
+        // Descargar archivo
+        function downloadFile(fileId) {
+            const file = files.find(f => f.id == fileId);
+            if (!file) return;
+
+            const link = document.createElement('a');
+            link.href = file.content;
+            link.download = file.name;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
             
-            try {
-                // Mostrar contenido según el tipo de archivo
-                if (file.preview === 'image') {
-                    const img = document.createElement('img');
-                    img.src = file.content;
-                    img.alt = file.name;
-                    previewContainer.appendChild(img);
-                } else if (file.type === 'pdf') {
-                    const iframe = document.createElement('iframe');
-                    iframe.src = file.content;
-                    iframe.style.border = 'none';
-                    previewContainer.appendChild(iframe);
-                } else {
-                    // Para otros tipos de archivo, mostrar información
-                    const messageContainer = document.createElement('div');
-                    messageContainer.className = 'file-preview-message';
-                    
-                    const icon = document.createElement('i');
-                    icon.className = `file-icon ${getFileIcon(file.type)}`;
-                    
-                    const message = document.createElement('p');
-                    message.textContent = `Vista previa no disponible para archivos .${file.type}. Utilice la función de descarga para ver el contenido completo.`;
-                    
-                    messageContainer.appendChild(icon);
-                    messageContainer.appendChild(message);
-                    previewContainer.appendChild(messageContainer);
-                }
+            showToast(`Descargando: ${file.name}`);
+        }
+
+        // Compartir archivo
+        function shareFile(fileId) {
+            const file = files.find(f => f.id == fileId);
+            if (!file) return;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: file.name,
+                    text: `Compartiendo el documento: ${file.name}`,
+                    url: file.content
+                })
+                .then(() => showToast('Documento compartido exitosamente'))
+                .catch(() => showToast('Error al compartir el documento', true));
+            } else {
+                // Fallback para navegadores que no soportan la API de compartir
+                const shareUrl = prompt(
+                    `Compartir "${file.name}"\n\nCopie el enlace:`, 
+                    file.content
+                );
                 
-                // Mostrar el modal
-                previewModal.style.display = 'flex';
-                showToast(`Vista previa de: ${file.name}`);
-            } catch (error) {
-                showToast('Error al cargar la vista previa', true);
-                console.error('Error en vista previa:', error);
+                if (shareUrl) {
+                    navigator.clipboard.writeText(file.content)
+                        .then(() => showToast('Enlace copiado al portapapeles'))
+                        .catch(() => showToast('Enlace listo para compartir'));
+                }
             }
         }
 
-        // Función para compartir archivo
-        function shareFile(fileId) {
-            const file = files.find(f => f.id === fileId);
-            if (!file) {
-                showToast('Error: Archivo no encontrado', true);
+        // Eliminar archivo
+        function deleteFile(fileId) {
+            const file = files.find(f => f.id == fileId);
+            if (!file) return;
+
+            if (!confirm(`¿Está seguro de que desea eliminar "${file.name}"?`)) {
                 return;
             }
+
+            files = files.filter(f => f.id != fileId);
             
-            try {
-                // Simular funcionalidad de compartir
-                if (navigator.share) {
-                    // Si el navegador soporta la Web Share API
-                    navigator.share({
-                        title: file.name,
-                        text: `Compartiendo el archivo: ${file.name}\n\nDescripción: ${file.description}`,
-                        url: file.content
-                    })
-                    .then(() => {
-                        showToast('Archivo compartido exitosamente');
-                    })
-                    .catch(error => {
-                        if (error.name !== 'AbortError') {
-                            showToast('Error al compartir el archivo', true);
-                        }
-                    });
-                } else {
-                    // Alternativa para navegadores que no soportan la API
-                    const shareUrl = prompt(
-                        `Compartir "${file.name}"\n\nDescripción: ${file.description}\n\nCopie la URL del archivo:`, 
-                        file.content
-                    );
+            // Guardar cambios
+            saveFiles();
+            updateCategoryCounts();
+            
+            // Si hay una búsqueda activa, actualizar los resultados
+            if (currentSearchTerm) {
+                searchFiles(currentSearchTerm);
+            } else {
+                renderFiles(files);
+                renderCategoryFilters();
+            }
+            
+            showToast(`Documento "${file.name}" eliminado correctamente`);
+        }
+
+        // Renderizar filtros de categorías
+        function renderCategoryFilters() {
+            const totalFiles = files.length;
+            
+            categoriesFilters.innerHTML = `
+                <div class="category-filter ${currentCategoryFilter === 'all' ? 'active' : ''}" data-category="all">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Todos los Documentos</span>
+                    <span class="count">${totalFiles}</span>
+                </div>
+                ${categories.map(category => {
+                    const count = files.filter(file => file.categoryId === category.id).length;
+                    return `
+                        <div class="category-filter ${currentCategoryFilter === category.id.toString() ? 'active' : ''}" 
+                             data-category="${category.id}">
+                            <i class="fas fa-folder" style="color: ${category.color}"></i>
+                            <span>${category.name}</span>
+                            <span class="count">${count}</span>
+                        </div>
+                    `;
+                }).join('')}
+            `;
+
+            // Agregar event listeners a los filtros
+            document.querySelectorAll('.category-filter').forEach(filter => {
+                filter.addEventListener('click', () => {
+                    const categoryId = filter.getAttribute('data-category');
+                    currentCategoryFilter = categoryId;
                     
-                    if (shareUrl) {
-                        // Intentar copiar al portapapeles
-                        navigator.clipboard.writeText(file.content).then(() => {
-                            showToast('Enlace copiado al portapapeles');
-                        }).catch(() => {
-                            showToast('Enlace listo para compartir');
+                    let filteredFiles = files;
+                    if (categoryId !== 'all') {
+                        filteredFiles = files.filter(file => file.categoryId === parseInt(categoryId));
+                    }
+                    
+                    // Aplicar búsqueda si hay un término activo
+                    if (currentSearchTerm) {
+                        filteredFiles = filteredFiles.filter(file => {
+                            const searchInName = file.name.toLowerCase().includes(currentSearchTerm);
+                            const searchInDescription = file.description.toLowerCase().includes(currentSearchTerm);
+                            const fileCategory = categories.find(cat => cat.id === file.categoryId);
+                            const searchInCategory = fileCategory ? fileCategory.name.toLowerCase().includes(currentSearchTerm) : false;
+                            
+                            return searchInName || searchInDescription || searchInCategory;
                         });
                     }
-                }
-            } catch (error) {
-                showToast('Error al compartir el archivo', true);
-                console.error('Error al compartir:', error);
-            }
-        }
-
-        // Función para eliminar archivo
-        async function deleteFile(fileId) {
-            // Verificar permisos
-            if (currentUser.role !== 'admin') {
-                showToast('No tiene permisos para eliminar archivos', true);
-                return;
-            }
-            
-            const file = files.find(f => f.id === fileId);
-            if (!file) {
-                showToast('Error: Archivo no encontrado', true);
-                return;
-            }
-            
-            // Confirmar eliminación
-            const confirmDelete = confirm(`¿Está seguro de que desea eliminar "${file.name}"?\nEsta acción no se puede deshacer.`);
-            
-            if (confirmDelete) {
-                try {
-                    // Eliminar archivo de la base de datos
-                    await deleteFileFromDB(fileId);
                     
-                    // Eliminar archivo del array
-                    files = files.filter(f => f.id !== fileId);
-                    
-                    // Volver a renderizar la lista
-                    renderFiles(files);
-                    
-                    // Mostrar mensaje de confirmación
-                    showToast(`Archivo "${file.name}" eliminado correctamente.`);
-                } catch (error) {
-                    showToast('Error al eliminar el archivo', true);
-                    console.error('Error al eliminar:', error);
-                }
-            }
-        }
-
-        // Función para obtener el icono según el tipo de archivo
-        function getFileIcon(fileType) {
-            switch(fileType) {
-                case 'pdf':
-                    return 'fas fa-file-pdf';
-                case 'doc':
-                case 'docx':
-                    return 'fas fa-file-word';
-                case 'jpg':
-                case 'png':
-                case 'gif':
-                    return 'fas fa-file-image';
-                default:
-                    return 'fas fa-file';
-            }
-        }
-
-        // Funcionalidad de búsqueda
-        searchInput.addEventListener('input', () => {
-            const searchTerm = searchInput.value.toLowerCase().trim();
-            
-            // Cerrar nota activa si existe
-            if (activeNote) {
-                deactivateNote(activeNote);
-            }
-            
-            if (searchTerm === '') {
-                renderFiles(files);
-                return;
-            }
-            
-            const filteredFiles = files.filter(file => {
-                // Buscar en los campos básicos del archivo
-                const basicSearch = 
-                    file.name.toLowerCase().includes(searchTerm) || 
-                    file.type.toLowerCase().includes(searchTerm) ||
-                    file.description.toLowerCase().includes(searchTerm) ||
-                    file.tags.some(tag => tag.toLowerCase().includes(searchTerm)) ||
-                    file.category.toLowerCase().includes(searchTerm) ||
-                    file.author.toLowerCase().includes(searchTerm);
-                
-                // Si ya encontramos en los campos básicos, no necesitamos buscar en las notas
-                if (basicSearch) return true;
-                
-                // Buscar en el contenido completo de la nota flotante
-                const noteContent = `
-                    ${file.name}
-                    ${file.description}
-                    ${file.category}
-                    ${file.author}
-                    ${file.date}
-                    ${file.size}
-                    ${file.tags.join(' ')}
-                    ${file.type}
-                `.toLowerCase();
-                
-                return noteContent.includes(searchTerm);
+                    renderFiles(filteredFiles);
+                    renderCategoryFilters(); // Actualizar contadores
+                });
             });
+        }
+
+        // Renderizar filtros de categorías para búsqueda
+        function renderCategoryFiltersForSearch(filteredFiles) {
+            const totalFiles = filteredFiles.length;
             
-            renderFiles(filteredFiles);
+            categoriesFilters.innerHTML = `
+                <div class="category-filter ${currentCategoryFilter === 'all' ? 'active' : ''}" data-category="all">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Todos los Documentos</span>
+                    <span class="count">${totalFiles}</span>
+                </div>
+                ${categories.map(category => {
+                    const count = filteredFiles.filter(file => file.categoryId === category.id).length;
+                    if (count === 0) return ''; // No mostrar categorías sin resultados
+                    
+                    return `
+                        <div class="category-filter ${currentCategoryFilter === category.id.toString() ? 'active' : ''}" 
+                             data-category="${category.id}">
+                            <i class="fas fa-folder" style="color: ${category.color}"></i>
+                            <span>${category.name}</span>
+                            <span class="count">${count}</span>
+                        </div>
+                    `;
+                }).join('')}
+            `;
+
+            // Agregar event listeners a los filtros
+            document.querySelectorAll('.category-filter').forEach(filter => {
+                filter.addEventListener('click', () => {
+                    const categoryId = filter.getAttribute('data-category');
+                    currentCategoryFilter = categoryId;
+                    
+                    let categoryFilteredFiles = files;
+                    if (categoryId !== 'all') {
+                        categoryFilteredFiles = files.filter(file => file.categoryId === parseInt(categoryId));
+                    }
+                    
+                    // Aplicar búsqueda
+                    const finalFilteredFiles = categoryFilteredFiles.filter(file => {
+                        const searchInName = file.name.toLowerCase().includes(currentSearchTerm);
+                        const searchInDescription = file.description.toLowerCase().includes(currentSearchTerm);
+                        const fileCategory = categories.find(cat => cat.id === file.categoryId);
+                        const searchInCategory = fileCategory ? fileCategory.name.toLowerCase().includes(currentSearchTerm) : false;
+                        
+                        return searchInName || searchInDescription || searchInCategory;
+                    });
+                    
+                    renderFiles(finalFilteredFiles);
+                    renderCategoryFiltersForSearch(finalFilteredFiles);
+                });
+            });
+        }
+
+        // Llenar selectores de categoría
+        function populateCategorySelectors() {
+            fileCategorySelect.innerHTML = categories.map(category => `
+                <option value="${category.id}">${category.name}</option>
+            `).join('');
+        }
+
+        // Mostrar archivos seleccionados
+        function renderSelectedFiles() {
+            if (selectedFiles.length === 0) {
+                selectedFilesContainer.classList.remove('active');
+                fileListPreview.innerHTML = '';
+                return;
+            }
+            
+            selectedFilesContainer.classList.add('active');
+            fileListPreview.innerHTML = selectedFiles.map(file => `
+                <div class="file-item">
+                    <div class="file-item-name">${file.name}</div>
+                    <div class="file-item-size">${formatFileSize(file.size)}</div>
+                </div>
+            `).join('');
+        }
+
+        // Manejar selección de archivos
+        function handleFileSelection(files) {
+            selectedFiles = Array.from(files);
+            renderSelectedFiles();
+        }
+
+        // Subir archivos
+        async function uploadFiles() {
+            if (selectedFiles.length === 0) {
+                showToast('Por favor seleccione al menos un archivo', true);
+                return;
+            }
+
+            const selectedCategoryId = parseInt(fileCategorySelect.value);
+            const selectedCategory = categories.find(cat => cat.id === selectedCategoryId);
+
+            if (!selectedCategory) {
+                showToast('Por favor seleccione una categoría válida', true);
+                return;
+            }
+
+            for (const file of selectedFiles) {
+                const fileType = getFileType(file.name);
+                
+                // Simular lectura del archivo (en una implementación real usarías FileReader)
+                const newFile = {
+                    id: Date.now() + Math.random(),
+                    name: file.name,
+                    type: fileType,
+                    size: formatFileSize(file.size),
+                    date: new Date().toLocaleDateString(),
+                    description: `Documento ${fileType.toUpperCase()} subido el ${new Date().toLocaleDateString()}.`,
+                    coverColor: getCoverClass(fileType),
+                    categoryId: selectedCategory.id,
+                    category: selectedCategory.name,
+                    content: URL.createObjectURL(file) // Para vista previa de imágenes
+                };
+
+                files.unshift(newFile);
+            }
+
+            // Guardar cambios
+            saveFiles();
+            updateCategoryCounts();
+
+            // Actualizar interfaz
+            if (currentSearchTerm) {
+                searchFiles(currentSearchTerm);
+            } else {
+                renderFiles(files);
+                renderCategoryFilters();
+            }
+            
+            // Limpiar selección
+            selectedFiles = [];
+            fileInput.value = '';
+            renderSelectedFiles();
+            
+            showToast(`Se han subido ${selectedFiles.length} archivo(s) correctamente`);
+        }
+
+        // Gestión de categorías
+        function renderCategoryManager() {
+            categoryList.innerHTML = categories.map(category => {
+                const count = files.filter(file => file.categoryId === category.id).length;
+                return `
+                    <div class="category-item">
+                        <div class="category-item-info">
+                            <div class="category-color" style="background: ${category.color}"></div>
+                            <div class="category-name">${category.name}</div>
+                            <div class="category-count">${count} documentos</div>
+                        </div>
+                        <div class="category-actions">
+                            <button class="category-action-btn edit-category" data-id="${category.id}">
+                                <i class="fas fa-edit"></i> Editar
+                            </button>
+                            <button class="category-action-btn delete-category" data-id="${category.id}">
+                                <i class="fas fa-trash"></i> Eliminar
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Agregar event listeners
+            document.querySelectorAll('.edit-category').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const categoryId = parseInt(e.currentTarget.getAttribute('data-id'));
+                    editCategory(categoryId);
+                });
+            });
+
+            document.querySelectorAll('.delete-category').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const categoryId = parseInt(e.currentTarget.getAttribute('data-id'));
+                    deleteCategory(categoryId);
+                });
+            });
+        }
+
+        function addCategory() {
+            const name = newCategoryName.value.trim();
+            const color = newCategoryColor.value;
+
+            if (!name) {
+                showToast('Por favor ingrese un nombre para la categoría', true);
+                return;
+            }
+
+            if (categories.some(cat => cat.name.toLowerCase() === name.toLowerCase())) {
+                showToast('Ya existe una categoría con ese nombre', true);
+                return;
+            }
+
+            const newCategory = {
+                id: Date.now(),
+                name: name,
+                color: color,
+                count: 0
+            };
+
+            categories.push(newCategory);
+            
+            // Guardar cambios
+            saveCategories();
+            
+            renderCategoryManager();
+            renderCategoryFilters();
+            populateCategorySelectors();
+
+            newCategoryName.value = '';
+            newCategoryColor.value = '#3498db';
+
+            showToast(`Categoría "${name}" agregada correctamente`);
+        }
+
+        function editCategory(categoryId) {
+            const category = categories.find(cat => cat.id === categoryId);
+            if (!category) return;
+
+            const newName = prompt('Ingrese el nuevo nombre para la categoría:', category.name);
+            if (newName && newName.trim() !== '') {
+                category.name = newName.trim();
+                
+                // Guardar cambios
+                saveCategories();
+                
+                renderCategoryManager();
+                renderCategoryFilters();
+                populateCategorySelectors();
+                showToast('Categoría actualizada correctamente');
+            }
+        }
+
+        function deleteCategory(categoryId) {
+            const category = categories.find(cat => cat.id === categoryId);
+            if (!category) return;
+
+            const filesInCategory = files.filter(file => file.categoryId === categoryId);
+            
+            if (filesInCategory.length > 0) {
+                if (!confirm(`La categoría "${category.name}" tiene ${filesInCategory.length} documento(s). ¿Está seguro de que desea eliminarla?`)) {
+                    return;
+                }
+            } else {
+                if (!confirm(`¿Está seguro de que desea eliminar la categoría "${category.name}"?`)) {
+                    return;
+                }
+            }
+
+            categories = categories.filter(cat => cat.id !== categoryId);
+            
+            // Guardar cambios
+            saveCategories();
+            
+            renderCategoryManager();
+            renderCategoryFilters();
+            populateCategorySelectors();
+
+            if (currentCategoryFilter === categoryId.toString()) {
+                currentCategoryFilter = 'all';
+                renderFiles(files);
+            }
+
+            showToast(`Categoría "${category.name}" eliminada correctamente`);
+        }
+
+        // Limpiar búsqueda
+        function clearSearchResults() {
+            currentSearchTerm = '';
+            searchInput.value = '';
+            searchResultsInfo.style.display = 'none';
+            renderFiles(files);
+            renderCategoryFilters();
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            checkExistingSession();
         });
 
-        // Cerrar modal
-        closeModal.addEventListener('click', () => {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            login(username, password);
+        });
+
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'var(--primary-color)';
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = '#bdc3c7';
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#bdc3c7';
+            if (e.dataTransfer.files.length) {
+                handleFileSelection(e.dataTransfer.files);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                handleFileSelection(e.target.files);
+            }
+        });
+
+        uploadBtn.addEventListener('click', uploadFiles);
+
+        categoryManagerBtn.addEventListener('click', () => {
+            renderCategoryManager();
+            categoryModal.style.display = 'flex';
+        });
+
+        closeCategoryModal.addEventListener('click', () => {
+            categoryModal.style.display = 'none';
+        });
+
+        categoryModal.addEventListener('click', (e) => {
+            if (e.target === categoryModal) {
+                categoryModal.style.display = 'none';
+            }
+        });
+
+        addCategoryBtn.addEventListener('click', addCategory);
+
+        loginModal.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+        });
+
+        // Event listeners para el modal de descripción
+        closeDescription.addEventListener('click', () => {
+            descriptionModal.style.display = 'none';
+        });
+
+        descriptionModal.addEventListener('click', (e) => {
+            if (e.target === descriptionModal) {
+                descriptionModal.style.display = 'none';
+            }
+        });
+
+        editDescriptionBtn.addEventListener('click', enableDescriptionEdit);
+        saveDescription.addEventListener('click', saveDescriptionChanges);
+        cancelEdit.addEventListener('click', cancelDescriptionEdit);
+
+        // Event listeners para el modal de vista previa
+        closePreview.addEventListener('click', () => {
             previewModal.style.display = 'none';
         });
 
-        // Cerrar modal al hacer clic fuera del contenido
         previewModal.addEventListener('click', (e) => {
             if (e.target === previewModal) {
                 previewModal.style.display = 'none';
             }
         });
 
-        // Cerrar modal con tecla Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && previewModal.style.display === 'flex') {
-                previewModal.style.display = 'none';
+        // Event listeners para la búsqueda
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value;
+            if (searchTerm.length >= 2 || searchTerm.length === 0) {
+                searchFiles(searchTerm);
             }
         });
 
-        // Cerrar nota activa al hacer clic fuera
-        document.addEventListener('click', (e) => {
-            if (activeNote && !e.target.closest('.file-floating-note') && !e.target.closest('.file-card')) {
-                deactivateNote(activeNote);
-            }
-        });
-
-        // Manejar el formulario de login
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            await login(username, password);
-        });
-
-        // =============================================
-        // INICIALIZACIÓN DE LA APLICACIÓN
-        // =============================================
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                // Inicializar base de datos
-                await initDatabase();
-                console.log('Base de datos inicializada correctamente');
-                
-                // Verificar si hay una sesión activa
-                checkExistingSession();
-            } catch (error) {
-                console.error('Error al inicializar la aplicación:', error);
-                showToast('Error al inicializar la aplicación', true);
-            }
-        });
+        clearSearch.addEventListener('click', clearSearchResults);
     </script>
 </body>
 </html>
