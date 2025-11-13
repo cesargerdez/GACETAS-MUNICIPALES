@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GACETAS MUNICIPALES - Gestor de Documentos</title>
     <style>
-        /* Todos los estilos anteriores se mantienen igual */
         :root {
             --primary-color: #3498db;
             --secondary-color: #2c3e50;
@@ -935,31 +934,6 @@
             padding: 1.5rem 0;
             margin-top: 2rem;
         }
-
-        /* Nuevos estilos para la visualización de archivos */
-        .pdf-viewer {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .image-viewer {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-
-        .unsupported-file {
-            text-align: center;
-            padding: 40px;
-            color: #7f8c8d;
-        }
-
-        .unsupported-file i {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            color: #bdc3c7;
-        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -1165,10 +1139,15 @@
     </footer>
 
     <script>
-        // Datos persistentes
+        // Datos de ejemplo
         let currentUser = null;
         let files = [];
-        let categories = [];
+        let categories = [
+            { id: 1, name: 'Ordenanzas Municipales', color: '#3498db', count: 0 },
+            { id: 2, name: 'Decretos', color: '#e74c3c', count: 0 },
+            { id: 3, name: 'Resoluciones', color: '#2ecc71', count: 0 },
+            { id: 4, name: 'Actas de Sesiones', color: '#f39c12', count: 0 }
+        ];
         let selectedFiles = [];
         let currentCategoryFilter = 'all';
         let currentEditingFile = null;
@@ -1217,81 +1196,6 @@
         const clearSearch = document.getElementById('clearSearch');
         const noResults = document.getElementById('noResults');
         const toast = document.getElementById('toast');
-
-        // Función para cargar datos desde localStorage
-        function loadDataFromStorage() {
-            try {
-                const savedFiles = localStorage.getItem('gacetasMunicipales_files');
-                const savedCategories = localStorage.getItem('gacetasMunicipales_categories');
-                
-                if (savedFiles) {
-                    files = JSON.parse(savedFiles);
-                } else {
-                    // Datos de ejemplo iniciales si no hay datos guardados
-                    files = [];
-                }
-                
-                if (savedCategories) {
-                    categories = JSON.parse(savedCategories);
-                } else {
-                    // Categorías iniciales si no hay datos guardados
-                    categories = [
-                        { id: 1, name: 'Ordenanzas Municipales', color: '#3498db', count: 0 },
-                        { id: 2, name: 'Decretos', color: '#e74c3c', count: 0 },
-                        { id: 3, name: 'Resoluciones', color: '#2ecc71', count: 0 },
-                        { id: 4, name: 'Actas de Sesiones', color: '#f39c12', count: 0 }
-                    ];
-                }
-                
-                // Actualizar contadores de categorías
-                updateCategoryCounts();
-            } catch (error) {
-                console.error('Error al cargar datos desde localStorage:', error);
-                // En caso de error, inicializar con datos por defecto
-                initializeDefaultData();
-            }
-        }
-
-        // Función para inicializar datos por defecto
-        function initializeDefaultData() {
-            files = [];
-            categories = [
-                { id: 1, name: 'Ordenanzas Municipales', color: '#3498db', count: 0 },
-                { id: 2, name: 'Decretos', color: '#e74c3c', count: 0 },
-                { id: 3, name: 'Resoluciones', color: '#2ecc71', count: 0 },
-                { id: 4, name: 'Actas de Sesiones', color: '#f39c12', count: 0 }
-            ];
-            
-            updateCategoryCounts();
-        }
-
-        // Función para actualizar contadores de categorías
-        function updateCategoryCounts() {
-            categories.forEach(category => {
-                category.count = files.filter(file => file.categoryId === category.id).length;
-            });
-        }
-
-        // Función para guardar datos en localStorage
-        function saveDataToStorage() {
-            try {
-                localStorage.setItem('gacetasMunicipales_files', JSON.stringify(files));
-                localStorage.setItem('gacetasMunicipales_categories', JSON.stringify(categories));
-            } catch (error) {
-                console.error('Error al guardar datos en localStorage:', error);
-                showToast('Error al guardar los datos. Es posible que el almacenamiento esté lleno.', true);
-            }
-        }
-
-        // Función para guardar archivos
-        function saveFiles() {
-            saveDataToStorage();
-        }
-
-        // Función para guardar categorías
-        function saveCategories() {
-            saveDataToStorage();
-        }
 
         // Función para mostrar notificaciones
         function showToast(message, isError = false) {
@@ -1346,16 +1250,6 @@
             return coverIcons[fileType] || "fas fa-file";
         }
 
-        // Función para convertir archivo a Data URL
-        function fileToDataURL(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = reject;
-                reader.readAsDataURL(file);
-            });
-        }
-
         // Actualizar interfaz según el usuario
         function updateUIForUser() {
             if (currentUser && currentUser.role === 'admin') {
@@ -1399,7 +1293,7 @@
                     name: 'Administrador',
                     role: 'admin'
                 };
-                localStorage.setItem('gacetasMunicipales_currentUser', JSON.stringify(currentUser));
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
                 updateUIForUser();
                 loadFiles();
                 showToast('Bienvenido, modo administrador activado');
@@ -1413,7 +1307,7 @@
         // Función de logout
         function logout() {
             currentUser = null;
-            localStorage.removeItem('gacetasMunicipales_currentUser');
+            localStorage.removeItem('currentUser');
             updateUIForUser();
             loadFiles();
             showToast('Sesión cerrada correctamente');
@@ -1421,20 +1315,17 @@
 
         // Verificar sesión existente
         function checkExistingSession() {
-            const savedUser = localStorage.getItem('gacetasMunicipales_currentUser');
+            const savedUser = localStorage.getItem('currentUser');
             if (savedUser) {
                 currentUser = JSON.parse(savedUser);
             }
-            
-            // Cargar datos desde localStorage
-            loadDataFromStorage();
-            
             updateUIForUser();
             loadFiles();
         }
 
         // Cargar archivos
         function loadFiles() {
+            // En una implementación real, aquí cargarías los archivos desde una base de datos
             renderFiles(files);
             renderCategoryFilters();
             populateCategorySelectors();
@@ -1636,9 +1527,6 @@
             
             currentEditingFile.description = descriptionEditor.value;
             
-            // Guardar cambios
-            saveFiles();
-            
             // Actualizar la descripción mostrada (con resaltado si hay búsqueda activa)
             let description = currentEditingFile.description || 'No hay descripción disponible para este documento.';
             if (currentSearchTerm) {
@@ -1666,67 +1554,32 @@
             descriptionEditor.value = currentEditingFile.description || '';
         }
 
-        // Vista previa de archivo - COMPLETAMENTE CORREGIDA
+        // Vista previa de archivo
         function previewFile(fileId) {
             const file = files.find(f => f.id == fileId);
-            if (!file) {
-                showToast('Archivo no encontrado', true);
-                return;
-            }
+            if (!file) return;
 
             previewTitle.textContent = `Vista Previa: ${file.name}`;
             previewContainer.innerHTML = '';
 
-            // Verificar si el contenido del archivo existe y es válido
-            if (!file.content || file.content === '#' || !file.content.startsWith('data:')) {
+            if (file.type === 'pdf') {
+                const iframe = document.createElement('iframe');
+                iframe.src = file.content;
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                previewContainer.appendChild(iframe);
+            } else if (['jpg', 'jpeg', 'png', 'gif'].includes(file.type)) {
+                const img = document.createElement('img');
+                img.src = file.content;
+                img.alt = file.name;
+                previewContainer.appendChild(img);
+            } else {
                 previewContainer.innerHTML = `
-                    <div class="unsupported-file">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <h3>Contenido no disponible para vista previa</h3>
-                        <p>Este archivo no tiene contenido disponible para mostrar en vista previa.</p>
-                        <p>Puede descargar el archivo para ver su contenido completo.</p>
-                    </div>
-                `;
-                previewModal.style.display = 'flex';
-                return;
-            }
-
-            try {
-                if (file.type === 'pdf') {
-                    // Para PDFs, usar iframe con el contenido
-                    const iframe = document.createElement('iframe');
-                    iframe.src = file.content;
-                    iframe.className = 'pdf-viewer';
-                    iframe.style.width = '100%';
-                    iframe.style.height = '100%';
-                    iframe.style.border = 'none';
-                    previewContainer.appendChild(iframe);
-                } else if (['jpg', 'jpeg', 'png', 'gif'].includes(file.type)) {
-                    // Para imágenes, mostrar directamente
-                    const img = document.createElement('img');
-                    img.src = file.content;
-                    img.alt = file.name;
-                    img.className = 'image-viewer';
-                    previewContainer.appendChild(img);
-                } else {
-                    // Para otros tipos de archivo, mostrar mensaje informativo
-                    previewContainer.innerHTML = `
-                        <div class="unsupported-file">
-                            <i class="fas fa-file ${getCoverIcon(file.type)}"></i>
-                            <h3>${file.name}</h3>
-                            <p>Vista previa no disponible para este tipo de archivo.</p>
-                            <p>Utilice la función de descarga para ver el contenido completo.</p>
-                        </div>
-                    `;
-                }
-            } catch (error) {
-                console.error('Error al cargar vista previa:', error);
-                previewContainer.innerHTML = `
-                    <div class="unsupported-file">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <h3>Error al cargar vista previa</h3>
-                        <p>No se pudo cargar la vista previa del archivo.</p>
-                        <p>Es posible que el archivo esté dañado o no sea compatible.</p>
+                    <div class="preview-message">
+                        <i class="fas fa-file ${getCoverIcon(file.type)}" style="font-size: 4rem; color: #3498db; margin-bottom: 1rem;"></i>
+                        <h3>${file.name}</h3>
+                        <p>Vista previa no disponible para este tipo de archivo.</p>
+                        <p>Utilice la función de descarga para ver el contenido completo.</p>
                     </div>
                 `;
             }
@@ -1743,25 +1596,14 @@
             const file = files.find(f => f.id == fileId);
             if (!file) return;
 
-            // Verificar si el contenido existe
-            if (!file.content || file.content === '#' || !file.content.startsWith('data:')) {
-                showToast('No se puede descargar: contenido no disponible', true);
-                return;
-            }
-
-            try {
-                const link = document.createElement('a');
-                link.href = file.content;
-                link.download = file.name;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                
-                showToast(`Descargando: ${file.name}`);
-            } catch (error) {
-                console.error('Error al descargar archivo:', error);
-                showToast('Error al descargar el archivo', true);
-            }
+            const link = document.createElement('a');
+            link.href = file.content;
+            link.download = file.name;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showToast(`Descargando: ${file.name}`);
         }
 
         // Compartir archivo
@@ -1802,10 +1644,6 @@
             }
 
             files = files.filter(f => f.id != fileId);
-            
-            // Guardar cambios
-            saveFiles();
-            updateCategoryCounts();
             
             // Si hay una búsqueda activa, actualizar los resultados
             if (currentSearchTerm) {
@@ -1952,7 +1790,7 @@
             renderSelectedFiles();
         }
 
-        // Subir archivos - COMPLETAMENTE CORREGIDA
+        // Subir archivos
         async function uploadFiles() {
             if (selectedFiles.length === 0) {
                 showToast('Por favor seleccione al menos un archivo', true);
@@ -1967,51 +1805,40 @@
                 return;
             }
 
-            try {
-                for (const file of selectedFiles) {
-                    const fileType = getFileType(file.name);
-                    
-                    // Convertir archivo a Data URL para persistencia
-                    const content = await fileToDataURL(file);
-                    
-                    const newFile = {
-                        id: Date.now() + Math.random(),
-                        name: file.name,
-                        type: fileType,
-                        size: formatFileSize(file.size),
-                        date: new Date().toLocaleDateString(),
-                        description: `Documento ${fileType.toUpperCase()} subido el ${new Date().toLocaleDateString()}.`,
-                        coverColor: getCoverClass(fileType),
-                        categoryId: selectedCategory.id,
-                        category: selectedCategory.name,
-                        content: content // Ahora guardamos el contenido real como Data URL
-                    };
-
-                    files.unshift(newFile);
-                }
-
-                // Guardar cambios
-                saveFiles();
-                updateCategoryCounts();
-
-                // Actualizar interfaz
-                if (currentSearchTerm) {
-                    searchFiles(currentSearchTerm);
-                } else {
-                    renderFiles(files);
-                    renderCategoryFilters();
-                }
+            for (const file of selectedFiles) {
+                const fileType = getFileType(file.name);
                 
-                // Limpiar selección
-                selectedFiles = [];
-                fileInput.value = '';
-                renderSelectedFiles();
-                
-                showToast(`Se han subido ${selectedFiles.length} archivo(s) correctamente`);
-            } catch (error) {
-                console.error('Error al subir archivos:', error);
-                showToast('Error al subir los archivos', true);
+                // Simular lectura del archivo (en una implementación real usarías FileReader)
+                const newFile = {
+                    id: Date.now() + Math.random(),
+                    name: file.name,
+                    type: fileType,
+                    size: formatFileSize(file.size),
+                    date: new Date().toLocaleDateString(),
+                    description: `Documento ${fileType.toUpperCase()} subido el ${new Date().toLocaleDateString()}.`,
+                    coverColor: getCoverClass(fileType),
+                    categoryId: selectedCategory.id,
+                    category: selectedCategory.name,
+                    content: URL.createObjectURL(file) // Para vista previa de imágenes
+                };
+
+                files.unshift(newFile);
             }
+
+            // Actualizar interfaz
+            if (currentSearchTerm) {
+                searchFiles(currentSearchTerm);
+            } else {
+                renderFiles(files);
+                renderCategoryFilters();
+            }
+            
+            // Limpiar selección
+            selectedFiles = [];
+            fileInput.value = '';
+            renderSelectedFiles();
+            
+            showToast(`Se han subido ${selectedFiles.length} archivo(s) correctamente`);
         }
 
         // Gestión de categorías
@@ -2075,10 +1902,6 @@
             };
 
             categories.push(newCategory);
-            
-            // Guardar cambios
-            saveCategories();
-            
             renderCategoryManager();
             renderCategoryFilters();
             populateCategorySelectors();
@@ -2096,10 +1919,6 @@
             const newName = prompt('Ingrese el nuevo nombre para la categoría:', category.name);
             if (newName && newName.trim() !== '') {
                 category.name = newName.trim();
-                
-                // Guardar cambios
-                saveCategories();
-                
                 renderCategoryManager();
                 renderCategoryFilters();
                 populateCategorySelectors();
@@ -2124,10 +1943,6 @@
             }
 
             categories = categories.filter(cat => cat.id !== categoryId);
-            
-            // Guardar cambios
-            saveCategories();
-            
             renderCategoryManager();
             renderCategoryFilters();
             populateCategorySelectors();
